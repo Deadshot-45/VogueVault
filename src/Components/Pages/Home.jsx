@@ -1,8 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
+import { Link } from "react-router-dom";
 import { assets, products } from "../../assets/frontend_assets/assets";
 import ProductsCard from "../ProductsCard/ProductsCard";
+import Subscribe from "../ProductsCard/Subscribe";
+import { DataFile } from "../ContextFile/DataContext";
 
 const Home = () => {
+  const { setProductDetails } = useContext(DataFile);
   const recentProducts = products
     .sort((a, b) => new Date(b.dateAdded) - new Date(a.dateAdded))
     .slice(0, 10);
@@ -10,9 +14,11 @@ const Home = () => {
     .filter((product) => product.bestseller)
     .map((product) => product)
     .slice(0, 5);
+
   return (
     <>
-      <header className="flex h-[68dvh] w-full mb-14">
+      {/* {!ShowProduct && <> */}
+      <header className="h-[68dvh] flex justify-between w-full mb-14 z-10 top-0">
         <div className="w-1/2 flex flex-col justify-center h-full border">
           <article className="w-[60%] flex items-center mx-auto gap-2">
             <div className="border w-10"></div>
@@ -32,7 +38,7 @@ const Home = () => {
           </article>
         </div>
         <div className="w-1/2 h-full">
-          <img src={assets.hero_img} alt="hero img" className="h-full" />
+          <img src={assets.hero_img} alt="hero img" className="h-full w-full" />
         </div>
       </header>
       <section className="mb-12">
@@ -50,7 +56,11 @@ const Home = () => {
         </article>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4 justify-center">
           {recentProducts.map((product) => (
-            <ProductsCard product={product} key={product.id} />
+            <button key={product.id} onClick={() => setProductDetails(product)}>
+              <Link to="/product">
+                <ProductsCard product={product} key={product.id} />
+              </Link>
+            </button>
           ))}
         </div>
       </section>
@@ -69,7 +79,9 @@ const Home = () => {
         </article>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
           {bestseller.map((product) => (
-            <ProductsCard product={product} key={product.id} />
+            <button key={product.id} onClick={() => onShowProduct(product)}>
+              <ProductsCard product={product} />
+            </button>
           ))}
         </div>
       </section>
@@ -108,31 +120,9 @@ const Home = () => {
           </p>
         </article>
       </section>
-      <section className="mb-32 w-[90%] ">
-        <article className="flex gap-4 flex-col justify-center items-center">
-          <h1 className="font-semibold font-sans text-2xl">
-            Subscribe now & get 10% off
-          </h1>
-          <p className="text-zinc-500 text-md">
-            Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry.
-          </p>
-          <div className="flex border border-zinc-200 justify-between w-1/2">
-            <input
-              type="email"
-              name="eamil"
-              placeholder="Enter your email"
-              className="px-2 outline-none text-zinc-700"
-            />
-            <button
-              type="button"
-              className="bg-black text-white text-[14px] py-3 px-8"
-            >
-              SUBSCRIBE
-            </button>
-          </div>
-        </article>
-      </section>
+      <Subscribe />
+      {/* </>}
+      {ShowProduct && <ProductPage Product={Product} />} */}
     </>
   );
 };
