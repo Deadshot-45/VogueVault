@@ -17,7 +17,6 @@ const Home = () => {
 
   return (
     <>
-      {/* {!ShowProduct && <> */}
       <header className="h-[68dvh] flex justify-between w-full mb-14 z-10 top-0">
         <div className="w-1/2 flex flex-col justify-center h-full border">
           <article className="w-[60%] flex items-center mx-auto gap-2">
@@ -121,8 +120,6 @@ const Home = () => {
         </article>
       </section>
       <Subscribe />
-      {/* </>}
-      {ShowProduct && <ProductPage Product={Product} />} */}
     </>
   );
 };

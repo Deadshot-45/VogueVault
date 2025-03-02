@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { assets, products } from "../assets/frontend_assets/assets";
 import { NavigationLinks } from "./NavContent.jsx/NavigationLinks";
 import { ActionButtons } from "./NavContent.jsx/ActionButtons";
 import { Link } from "react-router-dom";
+import { DataFile } from "./ContextFile/DataContext";
 
-const NavBar = ({setProductDetails}) => {
+const NavBar = () => {
+  const {setProductDetails} = useContext(DataFile);
   const [searchInput, setSearchInput] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState([]);

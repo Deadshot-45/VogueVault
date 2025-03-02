@@ -1,12 +1,13 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 export const NavigationLinks = () => {
+  const Navigate = useNavigate();
   const navLinks = [
     { to: "/", text: "HOME" },
-    { to: "/Collection", text: "COLLECTION" },
-    { to: "/About", text: "ABOUT" },
-    { to: "/Contact", text: "CONTACT" },
+    { to: "/collection", text: "COLLECTION" },
+    { to: "/about", text: "ABOUT" },
+    { to: "/contact", text: "CONTACT" },
   ];
 
   return (
@@ -27,6 +28,7 @@ export const NavigationLinks = () => {
       <li>
         <button
           type="button"
+          onClick={()=>Navigate("/admin/login")}
           className="border border-zinc-300 rounded-3xl py-2 px-4 text-[11px] cursor-pointer"
         >
           Admin Panel

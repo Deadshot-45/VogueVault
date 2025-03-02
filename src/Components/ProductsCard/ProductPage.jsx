@@ -1,23 +1,35 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { products } from "../../assets/frontend_assets/assets";
 import ProductsCard from "./ProductsCard";
 import { DataFile } from "../ContextFile/DataContext";
 
 const ProductPage = ({}) => {
-  const { productDetails, setProductDetails, setIsCart, setCart, cart } =
-    useContext(DataFile);
+  const {
+    productDetails,
+    setProductDetails,
+    setIsCart,
+    setCart,
+    cart,
+    setCartCount,
+  } = useContext(DataFile);
+  const [size, setSize] = useState();
   const handleAddToCart = () => {
-    const existingCart = cart.find(
-      (product) => product.id === productDetails.id
-    );
-    if (existingCart) {
-      existingCart.quantity += 1;
-    } else {
-      cart.push({ ...productDetails, quantity: 1 });
+    if(size){
+      const existingCart = cart.find(
+        (product) => product.id === productDetails.id
+      );
+      const findSize = cart.find((itemSize) => itemSize.size === size);
+      if (existingCart && findSize) {
+        existingCart.quantity += 1;
+      } else {
+        cart.push({ ...productDetails, quantity: 1, size });
+        setCartCount((count) => count + 1);
+      }
+      setCart([...cart]);
+      setIsCart(true);
+      setSize('')
     }
-    setCart([...cart]);
-    setIsCart(true);
   };
   const RelatedProducts = products
     .filter((product) => product.subCategory === productDetails.subCategory)
@@ -60,6 +72,7 @@ const ProductPage = ({}) => {
               {productDetails.sizes?.map((size) => (
                 <button
                   key={size}
+                  onClick={() => setSize(size)}
                   className="py-2 px-4 bg-[#ebebeb] border border-white rounded-md "
                 >
                   {size}

@@ -1,27 +1,18 @@
 import React, { useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { DataFile } from "../ContextFile/DataContext";
 
 const SignIn = () => {
   const { setUser, setIsLogin } = useContext(DataFile);
+  const navigate = useNavigate();
   const handleSignIn = (e) => {
     e.preventDefault();
     const formData = Object.fromEntries(new FormData(e.target));
     console.log(formData);
-    fetch("/api/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(formData),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
-        setUser(data);
-        setIsLogin(true);
-      });
-    console.log("Sign up button clicked");
+    setUser(formData);
+    setIsLogin(true);
+    console.log("login sucessfull");
+    navigate('/User:user')
   };
   return (
     <section className="h-[63dvh] w-full flex flex-col gap-3 justify-center items-center">
