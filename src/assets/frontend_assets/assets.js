@@ -75,7 +75,7 @@ import cross_icon from "./cross_icon.png";
 import VogueVault from "./VogueVault.png";
 
 export const assets = {
-    VogueVault,
+  VogueVault,
   logo,
   hero_img,
   cart_icon,

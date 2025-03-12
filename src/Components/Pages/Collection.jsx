@@ -1,8 +1,8 @@
-import React, { useState, useMemo, useContext } from "react";
+import React, { useState, useMemo, useContext, useEffect } from "react";
 import { products } from "../../assets/frontend_assets/assets";
-import ProductsCard from "../ProductsCard/ProductsCard";
-import { Link } from "react-router-dom";
-import { DataFile } from "../ContextFile/DataContext";
+import ProductsCard from "../ProductPages/ProductsCard";
+import { Link, useLocation } from "react-router-dom";
+import { DataContext } from "../../Context/DataContext";
 
 const SORTING_OPTIONS = [
   { value: "Relavent", label: "Sort By : Relavent" },
@@ -11,12 +11,25 @@ const SORTING_OPTIONS = [
 ];
 
 const Collection = () => {
-  const { setProductDetails } = useContext(DataFile);
+  const {
+    setProductDetails,
+    setSearchInput,
+    setSearchTerm: setGlobalSearchTerm,
+  } = useContext(DataContext);
   const [category, setCategory] = useState("");
   const [type, setType] = useState("");
   const [selectedSortingOption, setSelectedSortingOption] = useState(
     SORTING_OPTIONS[0].value
   );
+  const location = useLocation();
+
+  // Reset search term when navigating away
+  useEffect(() => {
+    return () => {
+      setGlobalSearchTerm("");
+      setSearchInput(false);
+    };
+  }, [location.pathname, setGlobalSearchTerm, setSearchInput]);
 
   const filteredProducts = useMemo(() => {
     let filtered = products;
@@ -40,7 +53,23 @@ const Collection = () => {
       case "High-to-low":
         filtered = filtered.sort((a, b) => b.price - a.price);
         break;
-      default: // Relavent
+      case "Relavent":
+        filtered = filtered.sort((a, b) => {
+          // First, sort by featured status
+          if (a.featured && !b.featured) return -1;
+          if (!a.featured && b.featured) return 1;
+
+          // Then by newness (assuming there's a date field, if not we can use id as newer items might have higher ids)
+          if (a.id > b.id) return -1;
+          if (a.id < b.id) return 1;
+
+          // Finally by rating if available
+          const aRating = a.rating || 0;
+          const bRating = b.rating || 0;
+          return bRating - aRating;
+        });
+        break;
+      default:
         break;
     }
 
@@ -60,91 +89,93 @@ const Collection = () => {
   };
 
   return (
-    <section className="w-full flex border-t border-zinc-300 justify-between mb-16 pt-6">
-      <article className="w-[20%] flex flex-col gap-4">
-        <h2 className="text-3xl">Filter</h2>
-        <div className="flex flex-col px-3 py-2 border border-zinc-300">
-          <label htmlFor="sortbycategory" className="py-2 border-b">
-            Category
-          </label>
-          <p className="flex gap-1">
-            <input
-              type="radio"
-              onClick={() => handleSortByCategory("Men")}
-              name="sortbycategory"
-              className="py-2 accent-red-600"
-            />
-            Men
-          </p>
-          <p className="flex gap-1">
-            <input
-              type="radio"
-              name="sortbycategory"
-              onClick={() => handleSortByCategory("Women")}
-              className="py-2 accent-red-600"
-            />
-            Women
-          </p>
-          <p className="flex gap-1">
-            <input
-              type="radio"
-              name="sortbycategory"
-              onClick={() => handleSortByCategory("Kids")}
-              className="py-2 accent-red-600"
-            />
-            Kids
-          </p>
-        </div>
-        <div className="flex flex-col px-3 py-2 border border-zinc-300">
-          <label htmlFor="sortbytype" className="py-2 border-b">
-            Type
-          </label>
-          <p className="flex gap-1">
-            <input
-              type="radio"
-              name="sortbytype"
-              onClick={() => handleSortByType("TopWear")}
-              className="py-2 accent-red-600"
-            />
-            TopWear
-          </p>
-          <p className="flex gap-1">
-            <input
-              type="radio"
-              name="sortbytype"
-              onClick={() => handleSortByType("BottomWear")}
-              className="py-2 accent-red-600"
-            />
-            BottomWear
-          </p>
-          <p className="flex gap-1">
-            <input
-              type="radio"
-              name="sortbytype"
-              onClick={() => handleSortByType("WinterWear")}
-              className="py-2 accent-red-600"
-            />
-            WinterWear
-          </p>
-        </div>
-      </article>
+    <div className="flex gap-8">
+      <aside className="w-64 flex-shrink-0">
+        <h2 className="text-2xl font-semibold mb-6">Filter</h2>
 
-      <article className="w-[78%] flex flex-col gap-4">
-        <div className="w-full h-10 flex justify-between ">
-          <div className="w-[60%] flex items-center gap-2">
-            <h1 className="font-bold text-xl font-mono text-zinc-500">
+        <div className="space-y-6">
+          <div className="border rounded-lg p-4">
+            <h3 className="font-medium mb-3">Category</h3>
+            <div className="space-y-2">
+              <label className="flex items-center gap-2">
+                <input
+                  type="radio"
+                  onClick={() => handleSortByCategory("Men")}
+                  name="sortbycategory"
+                  className="accent-red-600"
+                />
+                Men
+              </label>
+              <label className="flex items-center gap-2">
+                <input
+                  type="radio"
+                  name="sortbycategory"
+                  onClick={() => handleSortByCategory("Women")}
+                  className="accent-red-600"
+                />
+                Women
+              </label>
+              <label className="flex items-center gap-2">
+                <input
+                  type="radio"
+                  name="sortbycategory"
+                  onClick={() => handleSortByCategory("Kids")}
+                  className="accent-red-600"
+                />
+                Kids
+              </label>
+            </div>
+          </div>
+
+          <div className="border rounded-lg p-4">
+            <h3 className="font-medium mb-3">Type</h3>
+            <div className="space-y-2">
+              <label className="flex items-center gap-2">
+                <input
+                  type="radio"
+                  name="sortbytype"
+                  onClick={() => handleSortByType("TopWear")}
+                  className="accent-red-600"
+                />
+                TopWear
+              </label>
+              <label className="flex items-center gap-2">
+                <input
+                  type="radio"
+                  name="sortbytype"
+                  onClick={() => handleSortByType("BottomWear")}
+                  className="accent-red-600"
+                />
+                BottomWear
+              </label>
+              <label className="flex items-center gap-2">
+                <input
+                  type="radio"
+                  name="sortbytype"
+                  onClick={() => handleSortByType("WinterWear")}
+                  className="accent-red-600"
+                />
+                WinterWear
+              </label>
+            </div>
+          </div>
+        </div>
+      </aside>
+
+      <main className="flex-1">
+        <div className="flex justify-between items-center mb-8">
+          <div className="flex items-center gap-2">
+            <h1 className="font-bold text-2xl font-mono text-zinc-500">
               ALL <span className="text-black">Collections</span>
             </h1>
             <div className="border w-10"></div>
           </div>
 
-          <div className="flex justify-center items-center p-2  shadow-[0_0_2px_gray]">
+          <div className="border rounded-lg p-2">
             <select
-              id="sortby"
-              name="sortby"
               value={selectedSortingOption}
               onChange={handleSortingOptionChange}
-              className="outline-none px-2 py-1"
+              className="outline-none bg-transparent"
             >
               {SORTING_OPTIONS.map((option) => (
                 <option key={option.value} value={option.value}>
@@ -154,24 +185,26 @@ const Collection = () => {
             </select>
           </div>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 justify-center">
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           {filteredProducts.length > 0 ? (
             filteredProducts.map((product) => (
-              <button
+              <Link
                 key={product.id}
-                onClick={() => setProductDetails(product)}
+                to={`/product/${product.id}`}
+                className="mx-auto"
               >
-                <Link to="/product">
-                  <ProductsCard product={product} key={product.id} />
-                </Link>
-              </button>
+                <ProductsCard product={product} />
+              </Link>
             ))
           ) : (
-            <p className="text-black">No products found</p>
+            <p className="text-black col-span-full text-center">
+              No products found
+            </p>
           )}
         </div>
-      </article>
-    </section>
+      </main>
+    </div>
   );
 };
 

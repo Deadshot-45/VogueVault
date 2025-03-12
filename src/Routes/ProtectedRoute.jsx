@@ -1,11 +1,11 @@
-import { useContext } from 'react';
-import { AuthContext } from './AuthContext';
-import { Navigate } from 'react-router-dom';
+import { useContext } from "react";
+import { AuthContext } from "../Context/AuthContext";
+import { Navigate } from "react-router-dom";
 
 const ProtectedRoute = ({ children, role }) => {
-  const { user } = useContext(AuthContext);
+  const { admin } = useContext(AuthContext);
 
-  if (!user || user.role !== role) {
+  if (!admin || admin.role !== role) {
     return <Navigate to="/unauthorized" replace />;
   }
 

@@ -1,9 +1,9 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
-import { DataFile } from "../ContextFile/DataContext";
+import { DataContext } from "../../Context/DataContext";
 
 const SignUp = () => {
-  const { user, setUser } = useContext(DataFile);
+  const { user, setUser } = useContext(DataContext);
   const handleSignUp = (e) => {
     e.preventDefault();
     const formData = Object.fromEntries(new FormData(e.target));
