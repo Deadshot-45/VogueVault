@@ -24,7 +24,7 @@ const SignIn = () => {
       </article>
       <form
         onSubmit={(e) => handleSignIn(e)}
-        className="w-[350px] flex flex-col gap-2"
+        className="w-[350px] max-xm:w-[90%] flex flex-col gap-2"
       >
         <input
           type="email"

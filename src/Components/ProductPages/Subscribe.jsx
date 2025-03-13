@@ -11,20 +11,19 @@ const Subscribe = () => {
             Lorem Ipsum is simply dummy text of the printing and typesetting
             industry.
           </p>
-          <div className="flex border border-zinc-200 justify-between overflow-hidden max-sm:w-full w-1/2">
-            <input
-              type="email"
-              name="eamil"
-              placeholder="Enter your email"
-              className="px-2 outline-none text-zinc-700"
-            />
-            <button
-              type="button"
-              className="bg-black text-white text-[14px] py-3 px-8 max-xs:text-[12px] max-xs:px-3"
-            >
-              SUBSCRIBE
-            </button>
-          </div>
+          <form className="flex gap-2 ">
+              <input
+                type="email"
+                placeholder="Enter your email"
+                className="flex-1 max-xm:w-[50%] px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-black"
+              />
+              <button
+                type="submit"
+                className="px-4 py-2 bg-black text-white rounded-lg hover:bg-zinc-800 transition-colors"
+              >
+                Subscribe
+              </button>
+            </form>
         </article>
       </section>
   )

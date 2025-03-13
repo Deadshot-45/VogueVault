@@ -2,25 +2,26 @@ import React from "react";
 import { assets } from "../../assets/frontend_assets/assets";
 import { products } from "../../assets/frontend_assets/assets";
 import ProductCard from "../ProductPages/ProductsCard";
+import { Link } from "react-router-dom";
 
 const Mens = () => {
   // Filter Women' products from assets.products
-      const [mensProducts, setMensProducts] = React.useState(() => {
-        return products.filter((product) => product.category === "Men");
-      });
-       // Get unique subcategories from products
-      const [subCategory, setsubCategory] = React.useState(()=>{
-        const product = products.filter((product) => product.category === "Men");
-        return [...new Set(product.map((product) => product.subCategory))];
-      });
-    console.log(subCategory);
-      const handleCategoryFilter = (category) => {
-        // Filter products based on subcategory
-        const filteredProducts = products.filter(
-          (product) => product.subCategory === category && product.category === "Men"
-        );
-        setMensProducts(filteredProducts);
-      };
+  const [mensProducts, setMensProducts] = React.useState(() => {
+    return products.filter((product) => product.category === "Men");
+  });
+  // Get unique subcategories from products
+  const [subCategory, setsubCategory] = React.useState(() => {
+    const product = products.filter((product) => product.category === "Men");
+    return [...new Set(product.map((product) => product.subCategory))];
+  });
+  const handleCategoryFilter = (category) => {
+    // Filter products based on subcategory
+    const filteredProducts = products.filter(
+      (product) =>
+        product.subCategory === category && product.category === "Men"
+    );
+    setMensProducts(filteredProducts);
+  };
 
   return (
     <div className="space-y-16">
@@ -43,14 +44,16 @@ const Mens = () => {
       {/* Categories Grid */}
       <section className="container mx-auto px-4">
         <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {subCategory.map((subcategory) => {
+          {subCategory?.map((subcategory) => {
             const firstProduct = products.find(
-              (product) => product.subCategory === subcategory && product.category === "Men"
+              (product) =>
+                product.subCategory === subcategory &&
+                product.category === "Men"
             );
             return (
               <button
                 key={subcategory}
-                onClick={()=>handleCategoryFilter(category)}
+                onClick={() => handleCategoryFilter(subcategory)}
                 className="group relative overflow-hidden mx-auto rounded-lg"
               >
                 <img
@@ -75,7 +78,9 @@ const Mens = () => {
         <h2 className="text-3xl font-bold mb-8">Featured Products</h2>
         <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {mensProducts.map((product) => (
-            <ProductCard key={product.id} product={product} />
+            <Link key={product.id} to={`/product/${product.id}`}>
+              <ProductCard product={product} />
+            </Link>
           ))}
         </div>
       </section>

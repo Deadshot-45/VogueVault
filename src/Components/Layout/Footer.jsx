@@ -11,6 +11,28 @@ import {
 } from "react-icons/fa";
 
 const Footer = () => {
+  const companyLinks = [
+    {
+      name: "Home",
+      link: "/",
+    },
+    {
+      name: "About Us",
+      link: "/about",
+    },
+    {
+      name: "Contact Us",
+      link: "/contact",
+    },
+    {
+      name: "Delivery",
+      link: "/delivery",
+    },
+    {
+      name: "Privacy Policy",
+      link: "/privacy-policy",
+    },
+  ];
   return (
     <footer className="bg-white">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -36,57 +58,27 @@ const Footer = () => {
           <div className="space-y-4">
             <h2 className="font-semibold text-lg">Company</h2>
             <ul className="space-y-2">
+              {companyLinks.map((item, index) => (
+                <li key={index}>
+                  <Link
+                    to={`${item.link}`}
+                    className="text-zinc-600 hover:text-black transition-colors"
+                  >
+                    {item.name}
+                  </Link>
+                </li>
+              ))}
+
               <li>
-                <Link
-                  to="/"
-                  className="text-zinc-600 hover:text-black transition-colors"
+                <button
+                  type="button"
+                  onClick={() => Navigate("/admin/login")}
+                  className="text-sm font-medium text-gray-600 hover:text-black transition-colors duration-200"
                 >
-                  Home
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/about"
-                  className="text-zinc-600 hover:text-black transition-colors"
-                >
-                  About Us
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/contact"
-                  className="text-zinc-600 hover:text-black transition-colors"
-                >
-                  Contact Us
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/delivery"
-                  className="text-zinc-600 hover:text-black transition-colors"
-                >
-                  Delivery
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/privacy-policy"
-                  className="text-zinc-600 hover:text-black transition-colors"
-                >
-                  Privacy Policy
-                </Link>
-              </li>
-              <li>
-              <button
-              type="button"
-              onClick={() => Navigate("/admin/login")}
-              className="text-sm font-medium text-gray-600 hover:text-black transition-colors duration-200"
-            >
-              Admin Panel
-            </button>
+                  Admin Panel
+                </button>
               </li>
             </ul>
-            
           </div>
 
           {/* Contact Info */}
@@ -135,11 +127,11 @@ const Footer = () => {
               <input
                 type="email"
                 placeholder="Enter your email"
-                className="flex-1 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-black"
+                className="flex-1 max-xm:w-[50%] px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-black"
               />
               <button
                 type="submit"
-                className="px-4 py-2 bg-black text-white rounded-lg hover:bg-zinc-800 transition-colors"
+                className="max-xm:w-[40%] px-4 py-2 bg-black text-white rounded-lg hover:bg-zinc-800 transition-colors"
               >
                 Subscribe
               </button>

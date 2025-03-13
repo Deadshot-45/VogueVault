@@ -31,16 +31,33 @@ const FavorateProduct = ({ product, favorites, setFavorite }) => {
 
   return (
     <div className="w-full flex items-center gap-6 p-4 bg-white rounded-lg shadow-sm border border-gray-200">
-      {/* Product Image */}
-      <Link to={`/product/${product.id}`} className="flex-shrink-0">
-        <div className="w-24 h-24 rounded-md overflow-hidden">
-          <img
-            src={product.image}
-            alt={product.name}
-            className="w-full h-full object-cover object-center"
-          />
+      <div className="flex relative">
+        {/* Product Image */}
+        <Link to={`/product/${product.id}`} className="flex-shrink-0">
+          <div className="w-24 h-24 rounded-md overflow-hidden">
+            <img
+              src={product.image}
+              alt={product.name}
+              className="w-full h-full object-cover object-center"
+            />
+          </div>
+        </Link>
+        <div className="hidden items-center max-sm:flex gap-4 absolute left-16 top-[-5%]">
+          <button
+            onClick={() => handleFavorate(product)}
+            className="p-2 text-red-500/90 hover:text-red-600/90 transition-colors duration-200"
+            aria-label={
+              isFavorate ? "Remove from favorites" : "Add to favorites"
+            }
+          >
+            {isFavorate ? (
+              <FaHeart className="h-5 w-5" />
+            ) : (
+              <FaRegHeart className="h-5 w-5" />
+            )}
+          </button>
         </div>
-      </Link>
+      </div>
 
       {/* Product Details */}
       <div className="flex-1 min-w-0">
@@ -64,7 +81,7 @@ const FavorateProduct = ({ product, favorites, setFavorite }) => {
       </div>
 
       {/* Actions */}
-      <div className="flex items-center gap-4">
+      <div className="flex items-center max-sm:hidden gap-4">
         <button
           onClick={() => handleFavorate(product)}
           className="p-2 text-red-500 hover:text-red-600 transition-colors duration-200"

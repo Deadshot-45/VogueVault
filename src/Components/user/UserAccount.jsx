@@ -42,7 +42,7 @@ const UserAccount = () => {
   };
 
   return (
-    <div className="max-w-[1536px] mx-auto px-4 sm:px-6 lg:px-8 2xl:px-12 py-8">
+    <div className="max-w-[1536px] mx-auto px-4 sm:px-6 lg:max-2xl:px-8 2xl:px-12 py-8">
       <section className="w-full flex flex-col lg:flex-row gap-8 lg:gap-20 mt-10 mb-24 relative">
         {editImg && <UserEditImg propData={propData} />}
         {editUser && <UserEditForm propData={propData} />}
@@ -54,7 +54,7 @@ const UserAccount = () => {
               src={userImg ? userImg : products[0].image}
               alt="User-Img"
               loading="lazy"
-              className="w-[200px] h-[200px] rounded-full object-cover shadow-lg group-hover:shadow-xl transition-shadow duration-200"
+              className="w-[200px] h-[200px] rounded-full object-cover shadow-lg group-hover:shadow-xl z-2 transition-shadow duration-200"
             />
             <button
               onClick={() => setEditImg(true)}

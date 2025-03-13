@@ -6,22 +6,23 @@ import ProductCard from "../ProductPages/ProductsCard";
 
 const Womens = () => {
   // Filter Women' products from assets.products
-    const [womensProducts, setWomensProducts] = React.useState(() => {
-      return products.filter((product) => product.category === "Women");
-    });
-     // Get unique subcategories from products
-    const [subCategory, setsubCategory] = React.useState(()=>{
-      const product = products.filter((product) => product.category === "Women");
-      return [...new Set(product.map((product) => product.subCategory))];
-    });
-  
-    const handleCategoryFilter = (category) => {
-      // Filter products based on subcategory
-      const filteredProducts = products.filter(
-        (product) => product.subCategory === category && product.category === "Women"
-      );
-      setWomensProducts(filteredProducts);
-    };
+  const [womensProducts, setWomensProducts] = React.useState(() => {
+    return products.filter((product) => product.category === "Women");
+  });
+  // Get unique subcategories from products
+  const [subCategory, setsubCategory] = React.useState(() => {
+    const product = products.filter((product) => product.category === "Women");
+    return [...new Set(product.map((product) => product.subCategory))];
+  });
+
+  const handleCategoryFilter = (category) => {
+    // Filter products based on subcategory
+    const filteredProducts = products.filter(
+      (product) =>
+        product.subCategory === category && product.category === "Women"
+    );
+    setWomensProducts(filteredProducts);
+  };
 
   return (
     <div className="space-y-16">
@@ -46,12 +47,14 @@ const Womens = () => {
         <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {subCategory.map((subcategory) => {
             const firstProduct = products.find(
-              (product) => product.subCategory === subcategory && product.category === "Women"
+              (product) =>
+                product.subCategory === subcategory &&
+                product.category === "Women"
             );
             return (
               <button
                 key={subcategory}
-                onClick={()=> handleCategoryFilter(subcategory)}
+                onClick={() => handleCategoryFilter(subcategory)}
                 className="group relative overflow-hidden mx-auto rounded-lg"
               >
                 <img
@@ -76,7 +79,9 @@ const Womens = () => {
         <h2 className="text-3xl font-bold mb-8">Featured Products</h2>
         <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {womensProducts.map((product) => (
-            <ProductCard key={product.id} product={product} />
+            <Link key={product.id} to={`/product/${product.id}`}>
+              <ProductCard product={product} />
+            </Link>
           ))}
         </div>
       </section>

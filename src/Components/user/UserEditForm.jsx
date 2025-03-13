@@ -40,7 +40,7 @@ const UserEditForm = ({ propData }) => {
   };
 
   return (
-    <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center">
+    <div className="fixed inset-0 max-xm:absolute max-xm:w-[130%] max-xm:left-[-15%] p-4 max-xm:bg-transparent bg-black/80 backdrop-blur-sm z-5 flex items-center justify-center">
       <form
         onSubmit={handleSubmit}
         className="w-full max-w-2xl mx-4 bg-white rounded-lg shadow-xl p-6 relative"

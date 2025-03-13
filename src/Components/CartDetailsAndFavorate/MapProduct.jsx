@@ -20,7 +20,7 @@ const MapProduct = ({ product, favorites, setFavorite }) => {
       handleRemoveFromCart();
     } else {
       const updatedCart = cart.map((item) =>
-        item.name === product.name
+        item.name === product.name && item.size === product.size
           ? { ...item, quantity: limitedQuantity }
           : item
       );
@@ -41,17 +41,39 @@ const MapProduct = ({ product, favorites, setFavorite }) => {
   return (
     <div className="flex items-center gap-6 p-4 bg-white rounded-lg shadow-sm">
       {/* Product Image */}
-      <Link to={`/product/${product.id}`} className="flex-shrink-0">
-        <div className="w-24 h-24 rounded-md overflow-hidden">
-          <img
-            src={product.image}
-            alt={product.name}
-            className="w-full h-full object-cover object-center"
-          />
+      <div className="max-sm:flex max-sm:flex-col gap-2">
+        <Link to={`/product/${product.id}`} className="flex-shrink-0">
+          <div className="w-24 h-24 rounded-md overflow-hidden">
+            <img
+              src={product.image}
+              alt={product.name}
+              className="w-full h-full object-cover object-center"
+            />
+          </div>
+        </Link>
+        <div className="hidden w-24 max-sm:flex items-center gap-2">
+          <button
+            onClick={() => handleQuantityChange(product.quantity - 1)}
+            className="w-8 h-8 max-xs:w-6 max-xs:h-6 flex items-center justify-center rounded-md border border-gray-300 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+            disabled={product.quantity <= 1}
+          >
+            -
+          </button>
+          <span className="w-8 text-center text-sm font-medium text-gray-900">
+            {product.quantity}
+          </span>
+          <button
+            onClick={() => handleQuantityChange(product.quantity + 1)}
+            className="w-8 h-8 max-xs:w-6 max-xs:h-6  flex items-center justify-center rounded-md border border-gray-300 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+            disabled={product.quantity >= 99}
+          >
+            +
+          </button>
         </div>
-      </Link>
+      </div>
 
-      {/* Product Details */}
+      <div className="min-sm:flex gap-2">
+        {/* Product Details */}
       <div className="flex-1 min-w-0">
         <Link
           to={`/product/${product.id}`}
@@ -73,7 +95,7 @@ const MapProduct = ({ product, favorites, setFavorite }) => {
       </div>
 
       {/* Quantity Controls */}
-      <div className="flex items-center gap-2">
+      <div className="flex max-sm:hidden items-center gap-2">
         <button
           onClick={() => handleQuantityChange(product.quantity - 1)}
           className="w-8 h-8 flex items-center justify-center rounded-md border border-gray-300 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
@@ -115,6 +137,7 @@ const MapProduct = ({ product, favorites, setFavorite }) => {
         >
           <FaTrash className="h-5 w-5" />
         </button>
+      </div>
       </div>
     </div>
   );

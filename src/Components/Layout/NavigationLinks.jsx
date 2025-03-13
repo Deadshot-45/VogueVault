@@ -21,17 +21,17 @@ export const NavigationLinks = () => {
 
 
   return (
-    <div className="flex items-center max-[650px]:p-8 space-x-8 2xl:space-x-12 max-md:w-full ml-4">
-      <ul className="flex items-center space-x-8 max-[650px]:w-full max-[650px]:flex-col max-[650px]:items-start max-[650px]:gap-4">
+    <div className="flex items-center max-xm:p-8 max-xm:pl-0 space-x-8 2xl:space-x-12 max-md:w-full ml-4">
+      <ul className="flex items-center space-x-8 max-xm:w-full max-xm:flex-col max-xm:items-start max-xm:gap-4">
         {navLinks.map((link) => (
-          <li key={link.to} className="max-[650px]:w-full max-md:border-b border-gray-300 pb-2">
+          <li key={link.to} className="max-xm:w-full max-md:border-b border-gray-300 pb-2">
             <NavLink
               to={link.to}
               className={({ isActive }) =>
                 `text-sm font-medium transition-colors duration-200 2xl:text-base  max-md:w-full ${
                   isActive
-                    ? "text-black border-b-2 border-black max-[650px]:text-white max-[650px]:border-none"
-                    : "text-gray-500 hover:text-black max-[650px]:text-white"
+                    ? "text-black border-b-2 border-black max-xm:text-white max-xm:border-none"
+                    : "text-gray-500 hover:text-black max-xm:text-white"
                 }`
               }
             >
