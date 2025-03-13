@@ -3,8 +3,8 @@ import React from 'react';
 const ProductsCard = ({ product }) => {
   
   return (
-    <div className="sm:w-[220px] sm:h-[320px] max-xs:h-auto max-xs:w-[170px]  max-sm:min-xs:w-[190px] max-sm:min-xs:h-[290px] text-sm font-serif flex flex-col my-3 mx-auto cursor-pointer">
-      <div className="sm:h-[250px] max-xs:w-[170px] max-sm:min-xs:h-[230px] overflow-hidden pb-3">
+    <div className="sm:w-[220px] sm:h-[320px] max-xs:h-auto max-xs:w-[130px] max-sm:min-xs:w-[190px] max-sm:min-xs:h-[290px] text-sm font-serif flex flex-col my-3 mx-auto cursor-pointer">
+      <div className="sm:h-[250px] w-100% max-sm:min-xs:h-[230px] max-xs:h-[120px] overflow-hidden pb-3">
         <img
           src={product.image}
           alt={product.name} 

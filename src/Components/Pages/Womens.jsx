@@ -58,10 +58,10 @@ const Womens = () => {
                   src={firstProduct?.image}
                   alt={subcategory}
                   loading="lazy"
-                  className="w-full h-[400px] max-sm:h-[15dvh] max-sm:w-[15dvh]  object-cover transition-transform duration-300 group-hover:scale-105"
+                  className="w-full h-[400px] max-sm:min-xs:h-[15dvh] max-sm:w-[15dvh] max-xs:h-[12dvh] object-cover transition-transform duration-300 group-hover:scale-105"
                 />
                 <div className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  <h2 className="text-white text-2xl font-semibold">
+                  <h2 className="text-white text-2xl max-xs:text-xl font-semibold">
                     {subcategory}
                   </h2>
                 </div>
@@ -72,7 +72,7 @@ const Womens = () => {
       </section>
 
       {/* Featured Products */}
-      <section className="container mx-auto px-4">
+      <section className="mx-auto px-4">
         <h2 className="text-3xl font-bold mb-8">Featured Products</h2>
         <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {womensProducts.map((product) => (
