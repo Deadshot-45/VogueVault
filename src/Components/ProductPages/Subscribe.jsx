@@ -2,7 +2,7 @@ import React from 'react'
 
 const Subscribe = () => {
   return (
-    <section className="mb-32 w-[100%] border">
+    <section className="mb-32 w-[100%]">
         <article className="flex gap-4 flex-col justify-center items-center">
           <h1 className="font-semibold font-sans text-2xl max-xs:text-xl">
             Subscribe now & get 10% off
