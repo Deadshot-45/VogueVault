@@ -39,6 +39,7 @@ const Home = () => {
           <img
             src={assets.hero_img}
             alt="hero img"
+            loading="lazy"
             className="h-full w-full object-cover"
           />
         </div>
@@ -111,6 +112,7 @@ const CompanyInfo = () => {
         <img
           src={assets.exchange_icon}
           alt="exchange-img"
+          loading="lazy"
           className="h-12 w-12 max-sm:w-10 max-sm:h-10 mb-2"
         />
         <h2 className="font-semibold text-md max-sm:text-[12px]">
@@ -124,6 +126,7 @@ const CompanyInfo = () => {
         <img
           src={assets.quality_icon}
           alt="return-policy"
+          loading="lazy"
           className="h-12 w-12 max-sm:w-11 max-sm:h-11 mb-2"
         />
         <h2 className="font-semibold text-md max-sm:text-sm">

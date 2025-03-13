@@ -19,22 +19,19 @@ export const NavigationLinks = () => {
     setSearchInput(false);
   }, []);
 
-  const isActive = (path) => {
-    return location.pathname === path;
-  };
 
   return (
-    <div className="hidden md:flex items-center space-x-8 2xl:space-x-12">
-      <ul className="flex items-center space-x-8">
+    <div className="flex items-center max-[650px]:p-8 space-x-8 2xl:space-x-12 max-md:w-full ml-4">
+      <ul className="flex items-center space-x-8 max-[650px]:w-full max-[650px]:flex-col max-[650px]:items-start max-[650px]:gap-4">
         {navLinks.map((link) => (
-          <li key={link.to}>
+          <li key={link.to} className="max-[650px]:w-full max-md:border-b border-gray-300 pb-2">
             <NavLink
               to={link.to}
               className={({ isActive }) =>
-                `text-sm font-medium transition-colors duration-200 2xl:text-base ${
+                `text-sm font-medium transition-colors duration-200 2xl:text-base  max-md:w-full ${
                   isActive
-                    ? "text-black border-b-2 border-black"
-                    : "text-gray-500 hover:text-black"
+                    ? "text-black border-b-2 border-black max-[650px]:text-white max-[650px]:border-none"
+                    : "text-gray-500 hover:text-black max-[650px]:text-white"
                 }`
               }
             >
@@ -43,14 +40,6 @@ export const NavigationLinks = () => {
           </li>
         ))}
       </ul>
-
-      <button
-        type="button"
-        onClick={() => Navigate("/admin/login")}
-        className="text-sm font-medium text-gray-600 hover:text-black transition-colors duration-200"
-      >
-        Admin Panel
-      </button>
     </div>
   );
 };

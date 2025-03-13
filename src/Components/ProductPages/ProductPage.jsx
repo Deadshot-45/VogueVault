@@ -142,6 +142,7 @@ const ProductPage = () => {
             <img
               src={productDetails.image[selectedImage]}
               alt={productDetails.name}
+              loading="lazy"
               className="h-full w-full object-cover object-center"
             />
           </div>
@@ -156,6 +157,7 @@ const ProductPage = () => {
               >
                 <img
                   src={item}
+                  loading="lazy"
                   alt={`${productDetails.name} view ${index + 1}`}
                   className="h-full w-full object-cover object-center"
                 />
@@ -262,7 +264,7 @@ const ProductPage = () => {
         <h2 className="text-2xl font-bold text-gray-900 mb-8">
           Related Products
         </h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {RelatedProducts.map((product) => (
             <Link key={product.id} to={`/product/${product.id}`}>
               <ProductsCard product={product} />

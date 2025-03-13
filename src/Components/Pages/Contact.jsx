@@ -25,6 +25,7 @@ const Contact = () => {
           <img
             src={assets.contact_img}
             alt="Contact VogueVault"
+            loading="lazy"
             className="w-full h-[500px] object-cover rounded-lg"
           />
         </div>

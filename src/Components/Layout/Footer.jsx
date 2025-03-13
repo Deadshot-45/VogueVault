@@ -76,7 +76,17 @@ const Footer = () => {
                   Privacy Policy
                 </Link>
               </li>
+              <li>
+              <button
+              type="button"
+              onClick={() => Navigate("/admin/login")}
+              className="text-sm font-medium text-gray-600 hover:text-black transition-colors duration-200"
+            >
+              Admin Panel
+            </button>
+              </li>
             </ul>
+            
           </div>
 
           {/* Contact Info */}

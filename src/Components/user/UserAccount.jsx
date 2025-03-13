@@ -53,6 +53,7 @@ const UserAccount = () => {
             <img
               src={userImg ? userImg : products[0].image}
               alt="User-Img"
+              loading="lazy"
               className="w-[200px] h-[200px] rounded-full object-cover shadow-lg group-hover:shadow-xl transition-shadow duration-200"
             />
             <button

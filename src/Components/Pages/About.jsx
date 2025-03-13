@@ -40,6 +40,7 @@ const About = () => {
           <img
             src={assets.about_img}
             alt="About VogueVault"
+            loading="lazy"
             className="w-full h-[500px] object-cover rounded-lg"
           />
         </div>

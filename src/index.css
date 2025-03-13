@@ -1,9 +1,10 @@
 @import "tailwindcss";
 
-/* .bgscroll{
-    background: url("");
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
-    background: #000;
-} */
+@theme{
+    --breakpoint-xs: 400px;
+    --breakpoint-sm:30rem;
+    --breakpoint-md:48rem;
+    --breakpoint-lg: 64rem;
+    --breakpoint-xl: 80rem;
+    --breakpoint-2xl: 64rem;
+}

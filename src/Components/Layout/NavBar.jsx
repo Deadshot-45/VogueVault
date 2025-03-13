@@ -9,17 +9,15 @@ import { assets, products } from "../../assets/frontend_assets/assets";
 import { NavigationLinks } from "./NavigationLinks";
 import { ActionButtons } from "./ActionButtons";
 import { Link, useLocation } from "react-router-dom";
-// import { DataContext } from "../../Context/DataContext";
 import { FaSearch, FaTimes, FaSearchDollar } from "react-icons/fa";
+import { MdOutlineMenu } from "react-icons/md";
 
 const NavBar = () => {
-  // const { setProductDetails } = useContext(DataContext);
   const [searchInput, setSearchInput] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const location = useLocation();
   const searchRef = useRef(null);
-
   // Check if current route is auth or cart page
   const hideSearchPaths = ["/signin", "/signup", "/cart"];
   const shouldHideSearch = hideSearchPaths.some(
@@ -40,6 +38,8 @@ const NavBar = () => {
       setSearchTerm("");
       setSearchResults([]);
     }
+    document.getElementById("show-navbar").classList.remove("max-[650px]:flex");
+    console.log("object");
   }, [location.pathname, shouldHideSearch, searchInput]);
 
   // Focus search input when opened
@@ -75,9 +75,20 @@ const NavBar = () => {
   }, []);
 
   return (
-    <div className="bg-white/80 backdrop-blur-sm border-b border-gray-200 sticky top-0 z-50">
-      <div className="max-w-[1536px] mx-auto px-4 sm:px-6 lg:px-8 2xl:px-12">
+    <div className="bg-white/80 backdrop-blur-sm border-b border-gray-200 sticky top-0 z-50 sm:px-4">
+      <div className="max-w-[1536px] mx-auto px-4 sm:px-0 lg:max-2xl:px-8 2xl:px-12">
         <div className="flex items-center justify-between h-16 2xl:h-20">
+          <button className="min-[650px]:hidden mr-4"
+          onClick={()=>{
+            document.getElementById("show-navbar").classList.add("max-[650px]:flex");
+          }}>
+            <MdOutlineMenu />
+          </button>
+          <div id="show-navbar" className="hidden h-screen w-[200px] left-0 absolute top-0 bg-gray-700/90  flex-col">
+            {/* Navigation Links */}
+            <NavigationLinks />
+          </div>
+
           {/* Logo */}
           <Link to="/" className="flex-shrink-0">
             <img
@@ -88,10 +99,14 @@ const NavBar = () => {
           </Link>
 
           {/* Navigation Links */}
+          <div className="max-[650px]:hidden ml-4">
           <NavigationLinks />
+          </div>
 
           {/* Action Buttons */}
-          <ActionButtons ShowSearch={ShowSearch} />
+          <div className="flex max-md:w-full max-md:justify-end ">
+            <ActionButtons ShowSearch={ShowSearch} />
+          </div>
         </div>
 
         {/* Search Bar */}
