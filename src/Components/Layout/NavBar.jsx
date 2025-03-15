@@ -48,6 +48,27 @@ const NavBar = () => {
     }
   }, [searchInput]);
 
+  useEffect(() => {
+    const navbar = document.getElementById("show-navbar");
+
+    const handleClickOutside = (event) => {
+      if (
+        !navbar.contains(event.target) &&
+        !event.target.closest("a, button")
+      ) {
+        navbar.classList.remove("max-[650px]:flex");
+        navbar.classList.remove("opacity-0");
+        document.getElementById("show-navbar").setAttribute("disabled", false);
+      }
+    };
+
+    document.body.addEventListener("click", handleClickOutside);
+
+    return () => {
+      document.body.removeEventListener("click", handleClickOutside);
+    };
+  }, []);
+
   const ShowSearch = useCallback(() => {
     if (shouldHideSearch) return;
     setSearchInput(!searchInput);
@@ -74,17 +95,27 @@ const NavBar = () => {
   }, []);
 
   return (
-    <div className="bg-white/80 backdrop-blur-sm border-b border-gray-200 sticky top-0 z-50 sm:px-4">
+    <div className="bg-white/80 backdrop-blur-sm  border-b border-gray-200 sticky top-0 z-50 sm:px-4">
       <div className="max-w-[1536px] mx-auto px-4 sm:px-0 lg:max-2xl:px-8 2xl:px-12">
         <div className="flex items-center justify-between h-16 2xl:h-20">
-          <button className="min-[650px]:hidden text-xl" id="btn-disable"
-          onClick={()=>{
-            document.getElementById("show-navbar").classList.add("max-[650px]:flex");
-            document.getElementById("show-navbar").setAttribute("disabled", true);
-          }}>
+          <button
+            className="min-[650px]:hidden text-xl"
+            id="btn-disable"
+            onClick={() => {
+              document
+                .getElementById("show-navbar")
+                .classList.add("max-[650px]:flex");
+              document
+                .getElementById("show-navbar")
+                .setAttribute("disabled", true);
+            }}
+          >
             <MdOutlineMenu />
           </button>
-          <div id="show-navbar" className="hidden h-screen w-[200px] left-0 absolute top-0 bg-gray-700/90 flex-col">
+          <div
+            id="show-navbar"
+            className="hidden h-screen w-[200px] left-0 absolute top-0 bg-gray-700/90 flex-col"
+          >
             {/* Navigation Links */}
             <NavigationLinks />
           </div>
@@ -100,7 +131,7 @@ const NavBar = () => {
 
           {/* Navigation Links */}
           <div className="max-[650px]:hidden ml-4">
-          <NavigationLinks />
+            <NavigationLinks />
           </div>
 
           {/* Action Buttons */}
