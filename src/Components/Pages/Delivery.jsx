@@ -30,7 +30,7 @@ const Delivery = () => {
   return (
     <section className="mx-auto py-8 mb-10">
       <article className="flex justify-center items-center gap-2 mb-4">
-        <h1 className="font-bold text-3xl font-mono text-zinc-500">
+        <h1 className="font-bold text-3xl max-sm:text-2xl font-mono text-zinc-500">
           Delivery <span className="text-black">Information</span>
         </h1>
         <div className="border-2 w-10"></div>
@@ -58,10 +58,10 @@ const Delivery = () => {
         {deliveryInformation.map((item, index) => (
           <div
             key={index}
-            className="min-w-[400px] max-[600px]:w-full min-h-[200px] p-10 space-y-2 border border-zinc-400 rounded-lg"
+            className="max-sm:w-full min-h-[200px] sm:min-w-[400px] max-sm:p-6 p-10 space-y-2 border border-zinc-400 rounded-lg"
           >
             <h2 className="text-xl font-semibold">{item.head}</h2>
-            <ul className="list-disc space-y-2 px-4">
+            <ul className="list-disc space-y-2 px-4 text-zinc-600 text-[16px] font-serif">
               <li>{item.body1}</li>
               <li>{item.body2}</li>
               <li>{item.body3}</li>
