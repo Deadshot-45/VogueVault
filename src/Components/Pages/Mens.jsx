@@ -26,7 +26,7 @@ const Mens = () => {
   return (
     <div className="space-y-16">
       {/* Hero Section */}
-      <section className="relative h-[400px]">
+      <section className="relative h-[400px] max-xs:h-[25 0px]">
         <img
           src={assets.mens_hero}
           loading="lazy"
@@ -35,8 +35,8 @@ const Mens = () => {
         />
         <div className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center">
           <div className="text-center text-white space-y-4">
-            <h1 className="text-4xl font-bold">Men's Collection</h1>
-            <p className="text-lg">Discover our latest trends and styles</p>
+            <h1 className="text-4xl font-bold max-xs:text-3xl">Men's Collection</h1>
+            <p className="text-lg max-xs:text-md">Discover our latest trends and styles</p>
           </div>
         </div>
       </section>
@@ -60,10 +60,10 @@ const Mens = () => {
                   src={firstProduct?.image}
                   alt={subcategory}
                   loading="lazy"
-                  className="w-full h-[400px] max-sm:min-xs:h-[15dvh] max-sm:w-[15dvh] max-xs:h-[12dvh] object-cover transition-transform duration-300 group-hover:scale-105"
+                  className="w-full h-[400px] max-sm:min-xs:h-[15dvh] max-sm:w-[20dvh] max-xs:h-[18dvh] object-cover transition-transform duration-300 group-hover:scale-105"
                 />
                 <div className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  <h2 className="text-white text-2xl min-xs:text-xl font-semibold">
+                  <h2 className="text-white text-2xl min-xs:text-sm font-semibold">
                     {subcategory}
                   </h2>
                 </div>
