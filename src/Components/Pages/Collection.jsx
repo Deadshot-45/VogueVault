@@ -87,69 +87,19 @@ const Collection = () => {
 
   return (
     <div className="flex gap-8 max-md:flex-col">
-      <aside className="w-64 max-lg:w-40 max-md:w-full max-md:flex max-md:justify-between flex-shrink-0">
-        <h2 className="text-2xl font-semibold mb-6 max-md:mb-0">Filter</h2>
-
-        <div className="space-y-6 max-lg:flex">
-          <div className="space-y-6">
-            {/* Category Filter */}
-          <div
-            className="border max-md:border-none rounded-lg p-4 max-md:py-0 mx-auto max-md:hidden"
-            id="category-filter"
-          >
-            <h3 className="font-medium mb-3">Category</h3>
-            <div className="space-y-2 max-md:flex items-center max-md:gap-3">
-              {["Men", "Women", "Kids"].map((category, index) => (
-                <React.Fragment key={index}>
-                  <label className="flex items-center gap-2">
-                    <input
-                      type="radio"
-                      name="sortbycategory"
-                      onClick={() => handleSortByCategory(category)}
-                      className="accent-red-600"
-                    />
-                    {category}
-                  </label>
-                </React.Fragment>
-              ))}
-            </div>
-          </div>
-
-          {/* SubCategory Filter */}
-          <div
-            className="border max-md:border-none rounded-lg p-4 max-md:py-0 mx-auto max-md:hidden"
-            id="type-filter"
-          >
-            <h3 className="font-medium mb-3 max-md:mx-auto">Type</h3>
-            <div className="space-y-2 max-md:flex items-center max-md:gap-3">
-              {["TopWear", "BottomWear", "WinterWear"].map(
-                (category, index) => (
-                  <React.Fragment key={index}>
-                    <label className="flex items-center gap-2">
-                      <input
-                        type="radio"
-                        name="sortbycategory"
-                        onClick={() => handleSortByType(category)}
-                        className="accent-red-600"
-                      />
-                      {category}
-                    </label>
-                  </React.Fragment>
-                )
-              )}
-            </div>
-          </div>
-          </div>
-
+      <aside className="w-64 relative max-lg:w-40 max-md:w-full max-md:flex max-xs:flex-col max-md:justify-between flex-shrink-0">
+        <div className="max-xs:flex justify-between w-full">
+          <h2 className="text-2xl font-semibold mb-6 max-md:mb-0 max-xs:mr-6">
+            Filter
+          </h2>
           {/* Collapsible Filter Buttons */}
-          <div className="max-md:flex max-md:justify-center max-md:gap-3 md:hidden">
+          <div className="max-md:flex max-md:gap-3 md:hidden">
             <button
               className="bg-black text-white py-2 px-4 h-[50px] rounded-lg max-md:block"
               onClick={() => {
                 const categoryFilter =
                   document.getElementById("category-filter");
                 categoryFilter.classList.toggle("max-md:hidden");
-
               }}
             >
               Category
@@ -163,6 +113,51 @@ const Collection = () => {
             >
               Type
             </button>
+          </div>
+        </div>
+
+        {/* SubCategory/ Type Filter */}
+        <div
+          className="border max-md:border-none rounded-lg p-4 max-xs:p-0 max-md:py-0 mx-auto max-xs:mx-0 max-md:hidden max-xs:mb-2 mb-3"
+          id="type-filter"
+        >
+          <h3 className="font-medium mb-3 max-xs:m-0">Type</h3>
+          <div className="space-y-2 max-xs:space-y-0 max-md:flex flex-wrap items-center max-md:min-xs:gap-3 space-x-2">
+            {["TopWear", "BottomWear", "WinterWear"].map((category, index) => (
+              <React.Fragment key={index}>
+                <label className="flex items-center gap-2">
+                  <input
+                    type="radio"
+                    name="sortbycategory"
+                    onClick={() => handleSortByType(category)}
+                    className="accent-red-600"
+                  />
+                  {category}
+                </label>
+              </React.Fragment>
+            ))}
+          </div>
+        </div>
+        {/* Category Filter */}
+        <div
+          className="border max-md:border-none rounded-lg p-4 max-xs:p-1 max-sm:py-0 mx-auto max-md:hidden"
+          id="category-filter"
+        >
+          <h3 className="font-medium mb-3 max-xs:mb-0">Category</h3>
+          <div className="space-y-2 max-md:flex flex-wrap items-center max-md:min-xs:gap-3 space-x-2">
+            {["Men", "Women", "Kids"].map((category, index) => (
+              <React.Fragment key={index}>
+                <label className="flex items-center gap-2">
+                  <input
+                    type="radio"
+                    name="sortbycategory"
+                    onClick={() => handleSortByCategory(category)}
+                    className="accent-red-600"
+                  />
+                  {category}
+                </label>
+              </React.Fragment>
+            ))}
           </div>
         </div>
       </aside>
