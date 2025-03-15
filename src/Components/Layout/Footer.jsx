@@ -1,6 +1,6 @@
 import React from "react";
 import { assets } from "../../assets/frontend_assets/assets";
-import { Link } from "react-router-dom";
+import { Link, Links, useNavigate } from "react-router-dom";
 import {
   FaInstagram,
   FaPhone,
@@ -11,6 +11,7 @@ import {
 } from "react-icons/fa";
 
 const Footer = () => {
+  const Navigate = useNavigate();
   const companyLinks = [
     {
       name: "Home",
@@ -68,16 +69,6 @@ const Footer = () => {
                   </Link>
                 </li>
               ))}
-
-              <li>
-                <button
-                  type="button"
-                  onClick={() => Navigate("/admin/login")}
-                  className="text-sm font-medium text-gray-600 hover:text-black transition-colors duration-200"
-                >
-                  Admin Panel
-                </button>
-              </li>
             </ul>
           </div>
 
