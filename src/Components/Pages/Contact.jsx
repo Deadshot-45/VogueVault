@@ -26,7 +26,7 @@ const Contact = () => {
             src={assets.contact_img}
             alt="Contact VogueVault"
             loading="lazy"
-            className="w-full h-[500px] object-cover rounded-lg"
+            className="w-full h-[500px] max-xs:h-[300px] object-cover rounded-lg"
           />
         </div>
 
@@ -89,7 +89,7 @@ const Contact = () => {
       <section className="grid grid-cols-1 md:grid-cols-3 gap-8">
         <div className="p-8 border rounded-lg">
           <h3 className="text-xl font-semibold mb-4">Business Hours</h3>
-          <div className="space-y-2">
+          <div className="space-y-2 flex flex-col flex-wrap">
             <p className="text-zinc-600">Monday - Friday: 9:00 AM - 8:00 PM</p>
             <p className="text-zinc-600">Saturday: 10:00 AM - 6:00 PM</p>
             <p className="text-zinc-600">Sunday: Closed</p>
@@ -98,16 +98,16 @@ const Contact = () => {
 
         <div className="p-8 border rounded-lg">
           <h3 className="text-xl font-semibold mb-4">Customer Support</h3>
-          <div className="space-y-2">
-            <p className="text-zinc-600">Email: support@voguevault.com</p>
-            <p className="text-zinc-600">Phone: 1800-123-4567</p>
+          <div className="space-y-2 flex flex-col flex-wrap">
+            <a href="mailto:support@vaguevault.com" className="text-zinc-600 hover:text-zinc-800">Email: support@voguevault.com</a>
+            <a href="tel:18001234567" className="text-zinc-600 hover:text-zinc-800">Phone: 1800-123-4567</a>
             <p className="text-zinc-600">Available: 24/7</p>
           </div>
         </div>
 
         <div className="p-8 border rounded-lg">
           <h3 className="text-xl font-semibold mb-4">Location</h3>
-          <div className="space-y-2">
+          <div className="space-y-2 flex flex-col flex-wrap">
             <p className="text-zinc-600">VogueVault Headquarters</p>
             <p className="text-zinc-600">123 Business Street</p>
             <p className="text-zinc-600">Mumbai, India 400001</p>
