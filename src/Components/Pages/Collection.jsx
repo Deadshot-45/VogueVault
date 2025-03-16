@@ -77,6 +77,11 @@ const Collection = () => {
     setCategory(value);
   };
 
+  const handleCategory = (e)=>{
+    const category = e.target.value;
+    category && setCategory(e.target.value)
+  }
+
   const handleSortByType = (value) => {
     setType(value);
   };
@@ -87,42 +92,40 @@ const Collection = () => {
 
   return (
     <div className="flex gap-8 max-md:flex-col">
-      <aside className="w-64 relative max-lg:w-40 max-md:w-full max-md:flex max-xs:flex-col max-md:justify-between flex-shrink-0">
-        <div className="max-xs:flex justify-between w-full">
+      <aside className="w-64 relative max-lg:w-40 max-md:w-full max-md:flex max-md:justify-between flex-shrink-0">
+        <div className="max-xs:flex justify-between max-md:items-center w-full">
           <h2 className="text-2xl font-semibold mb-6 max-md:mb-0 max-xs:mr-6">
             Filter
           </h2>
-          {/* Collapsible Filter Buttons */}
-          <div className="max-md:flex max-md:gap-3 md:hidden">
-            <button
-              className="bg-black text-white py-2 px-4 h-[50px] rounded-lg max-md:block"
-              onClick={() => {
-                const categoryFilter =
-                  document.getElementById("category-filter");
-                categoryFilter.classList.toggle("max-md:hidden");
-              }}
+          <div className="flex gap-2">
+            <select
+              onClick={handleCategory}
+              className="border border-zinc-700 outline-none bg-transparent py-1 rounded-sm hidden max-xs:block max-md:text-[10px] max-xs:[8px]"
             >
-              Category
-            </button>
-            <button
-              className="bg-black text-white py-2 px-4 h-[50px] rounded-lg max-md:block"
-              onClick={() => {
-                const typeFilter = document.getElementById("type-filter");
-                typeFilter.classList.toggle("max-md:hidden");
-              }}
+              <option value="">(select category)</option>
+              <option value="Men">Men</option>
+              <option value="Women">Women</option>
+              <option value="Kids">Kids</option>
+            </select>
+            <select
+              onClick={handleCategory}
+              className="border border-zinc-700 outline-none bg-transparent py-1 rounded-sm hidden max-xs:block max-md:text-[10px] max-xs:[8px]"
             >
-              Type
-            </button>
+              <option value="">(select type)</option>
+              <option value="Men">Men</option>
+              <option value="Women">Women</option>
+              <option value="Kids">Kids</option>
+            </select>
           </div>
         </div>
 
         {/* SubCategory/ Type Filter */}
         <div
-          className="border max-md:border-none rounded-lg p-4 max-xs:p-0 max-md:py-0 mx-auto max-xs:mx-0 max-md:hidden max-xs:mb-2 mb-3"
+          className="border rounded-lg p-4 max-md:py-0 mx-auto max-md:hidden mb-3"
           id="type-filter"
         >
-          <h3 className="font-medium mb-3 max-xs:m-0">Type</h3>
-          <div className="space-y-2 max-xs:space-y-0 max-md:flex flex-wrap items-center max-md:min-xs:gap-3 space-x-2">
+          <h3 className="font-medium mb-3">Type</h3>
+          <div className="space-y-2 max-md:flex flex-wrap items-center space-x-2">
             {["TopWear", "BottomWear", "WinterWear"].map((category, index) => (
               <React.Fragment key={index}>
                 <label className="flex items-center gap-2">
@@ -140,11 +143,11 @@ const Collection = () => {
         </div>
         {/* Category Filter */}
         <div
-          className="border max-md:border-none rounded-lg p-4 max-xs:p-1 max-sm:py-0 mx-auto max-md:hidden"
+          className="border max-md:border-none rounded-lg p-4 max-xs:hidden max-sm:py-0 mx-auto max-md:hidden"
           id="category-filter"
         >
           <h3 className="font-medium mb-3 max-xs:mb-0">Category</h3>
-          <div className="space-y-2 max-md:flex flex-wrap items-center max-md:min-xs:gap-3 space-x-2">
+          <div className="space-y-2 max-md:flex flex-wrap items-center space-x-2">
             {["Men", "Women", "Kids"].map((category, index) => (
               <React.Fragment key={index}>
                 <label className="flex items-center gap-2">
@@ -171,17 +174,17 @@ const Collection = () => {
             <div className="border w-10 max-xs:hidden"></div>
           </div>
 
-          <div className="border rounded-lg p-2 ">
+          <div className="border rounded-lg p-2 max-xs:p-1 ">
             <select
               value={selectedSortingOption}
               onChange={handleSortingOptionChange}
-              className="outline-none bg-transparent  max-md:min-xs:w-44 max-xs:w-36"
+              className="outline-none bg-transparent max-md:min-xs:w-44 max-xs:w-28  max-md:text-[10px] max-xs:[8px]"
             >
               {SORTING_OPTIONS.map((option) => (
                 <option
                   key={option.value}
                   value={option.value}
-                  className="max-md:text-[10px] max-xs:[5px]"
+                  className="max-xs:px-2"
                 >
                   {option.label}
                 </option>
