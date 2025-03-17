@@ -78,14 +78,10 @@ const Collection = () => {
   };
 
   const handleCategory = (e) => {
-    const category = e.target.value;
-    console.log(category);
-    category && setCategory(category);
+    setCategory(e.target.value);
   };
   const handleType = (e) => {
-    const type = e.target.value;
-    console.log(type);
-    type && setType(type);
+    setType(e.target.value);
   };
 
   const handleSortByType = (value) => {
