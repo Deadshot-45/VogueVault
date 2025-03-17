@@ -101,7 +101,7 @@ const Collection = () => {
           </h2>
           <div className="flex gap-2">
             <select
-              onClick={handleCategory}
+              onChange={handleCategory}
               className="border border-zinc-700 outline-none bg-transparent py-1 rounded-sm hidden max-xs:block max-md:text-[10px] max-xs:[8px]"
             >
               <option value="">(select category)</option>
@@ -112,7 +112,7 @@ const Collection = () => {
               ))}
             </select>
             <select
-              onClick={handleType}
+              onChange={handleType}
               className="border border-zinc-700 outline-none bg-transparent py-1 rounded-sm hidden max-xs:block max-md:text-[10px] max-xs:[8px]"
             >
               <option value="">(select type)</option>
