@@ -28,7 +28,7 @@ const Collection = () => {
     };
   }, [location.pathname, setGlobalSearchTerm, setSearchInput]);
 
-  const filteredProducts = useMemo(() => {
+  let filteredProducts = useMemo(() => {
     let filtered = products;
 
     if (category) {
@@ -77,10 +77,16 @@ const Collection = () => {
     setCategory(value);
   };
 
-  const handleCategory = (e)=>{
+  const handleCategory = (e) => {
     const category = e.target.value;
-    category && setCategory(e.target.value)
-  }
+    console.log(category);
+    category && setCategory(category);
+  };
+  const handleType = (e) => {
+    const type = e.target.value;
+    console.log(type);
+    type && setType(type);
+  };
 
   const handleSortByType = (value) => {
     setType(value);
@@ -103,18 +109,24 @@ const Collection = () => {
               className="border border-zinc-700 outline-none bg-transparent py-1 rounded-sm hidden max-xs:block max-md:text-[10px] max-xs:[8px]"
             >
               <option value="">(select category)</option>
-              <option value="Men">Men</option>
-              <option value="Women">Women</option>
-              <option value="Kids">Kids</option>
+              {["Men", "Women", "Kids"].map((category, index) => (
+                <option key={index} value={category} className="">
+                  {category}
+                </option>
+              ))}
             </select>
             <select
-              onClick={handleCategory}
+              onClick={handleType}
               className="border border-zinc-700 outline-none bg-transparent py-1 rounded-sm hidden max-xs:block max-md:text-[10px] max-xs:[8px]"
             >
               <option value="">(select type)</option>
-              <option value="Men">Men</option>
-              <option value="Women">Women</option>
-              <option value="Kids">Kids</option>
+              {["TopWear", "BottomWear", "WinterWear"].map(
+                (category, index) => (
+                  <option key={index} value={category} className="">
+                    {category}
+                  </option>
+                )
+              )}
             </select>
           </div>
         </div>
