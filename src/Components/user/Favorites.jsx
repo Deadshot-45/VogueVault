@@ -8,7 +8,7 @@ const Favorites = () => {
   const { favorites } = useContext(DataContext);
 
   return (
-    <div className="max-w-[1536px] mx-auto px-4 sm:px-6 lg:px-8 2xl:px-12 py-8">
+    <div className="max-w-[1536px] mx-auto px-4 sm:px-6 lg:max-2xl:px-8 2xl:px-12 py-8">
       <div className="flex items-center justify-between mb-8">
         <h1 className="text-2xl font-semibold text-gray-900 2xl:text-3xl">
           My Favorites
@@ -19,10 +19,11 @@ const Favorites = () => {
       </div>
 
       {favorites.length > 0 ? (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-6">
-          {favorites.map((product) => (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:max-2xl:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-6">
+          {favorites.map((product, index) => (
             <ProductCard
               key={product.id}
+              index={index}
               product={product}
               showFavorite={true}
             />

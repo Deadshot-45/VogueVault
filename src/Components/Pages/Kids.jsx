@@ -9,22 +9,22 @@ const Kids = () => {
   const [kidsProducts, setKidsProducts] = useState(() => {
     return products.filter((product) => product.category === "Kids");
   });
-  const [subCategory, setsubCategory] = useState(()=>{
+  const [subCategory, setsubCategory] = useState(() => {
     const product = products.filter((product) => product.category === "Kids");
     return [...new Set(product.map((product) => product.subCategory))];
   });
 
   const handleCategoryFilter = (category) => {
-    
     // Filter products based on subcategory
     const filteredProducts = products.filter(
-      (product) => product.subCategory === category && product.category === "Kids"
+      (product) =>
+        product.subCategory === category && product.category === "Kids"
     );
     setKidsProducts(filteredProducts);
   };
 
   return (
-    <div className="space-y-16">
+    <div className="space-y-16 fade-in">
       {/* Hero Section */}
       <section className="relative h-[400px] max-xs:h-[250px]">
         <img
@@ -35,8 +35,12 @@ const Kids = () => {
         />
         <div className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center">
           <div className="text-center text-white space-y-4">
-            <h1 className="text-4xl max-xs:text-3xl font-bold">Kids Collection</h1>
-            <p className="text-lg max-xs:text-md">Adorable styles for your little ones</p>
+            <h1 className="text-4xl max-xs:text-3xl font-bold">
+              Kids Collection
+            </h1>
+            <p className="text-lg max-xs:text-md">
+              Adorable styles for your little ones
+            </p>
           </div>
         </div>
       </section>
@@ -45,7 +49,11 @@ const Kids = () => {
       <section className="container mx-auto px-4">
         <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {subCategory.map((subcategory) => {
-            const firstProduct = products.find(product=> product.subCategory === subcategory && product.category === "Kids");
+            const firstProduct = products.find(
+              (product) =>
+                product.subCategory === subcategory &&
+                product.category === "Kids"
+            );
             return (
               <button
                 key={subcategory}
@@ -73,8 +81,12 @@ const Kids = () => {
       <section className="container mx-auto px-4">
         <h2 className="text-3xl font-bold mb-8">Featured Products</h2>
         <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {kidsProducts.map((product) => (
-            <Link key={product.id} to={`/product/${product.id}`}>
+          {kidsProducts.map((product, index) => (
+            <Link
+              key={product.id}
+              to={`/product/${product.id}`}
+              className={`mx-auto card-mount delay-${index % 5}`}
+            >
               <ProductCard product={product} />
             </Link>
           ))}

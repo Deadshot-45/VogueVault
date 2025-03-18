@@ -95,7 +95,7 @@ const NavBar = () => {
   }, []);
 
   return (
-    <div className="bg-white/80 backdrop-blur-sm  border-b border-gray-200 sticky top-0 z-50 sm:px-4">
+    <div className="bg-white/80 backdrop-blur-sm  border-b border-gray-200 sticky top-0 z-50 sm:px-4 fade-in">
       <div className="max-w-[1536px] mx-auto px-4 sm:px-0 lg:max-2xl:px-8 2xl:px-12">
         <div className="flex items-center justify-between h-16 2xl:h-20">
           <button

@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { DataContext } from "../../Context/DataContext";
 import { FaTrash, FaHeart, FaRegHeart } from "react-icons/fa";
 
-const MapProduct = ({ product, favorites, setFavorite }) => {
+const MapProduct = ({ product, favorites, setFavorite, index }) => {
   const { cart, setCart, setCartCount } = useContext(DataContext);
 
   const handleRemoveFromCart = () => {
@@ -39,7 +39,7 @@ const MapProduct = ({ product, favorites, setFavorite }) => {
   };
 
   return (
-    <div className="flex items-center gap-6 p-4 bg-white rounded-lg shadow-sm">
+    <div className={`flex items-center gap-6 p-4 bg-white rounded-lg shadow-sm card-mount delay-${index % 5}`}>
       {/* Product Image */}
       <div className="max-sm:flex max-sm:flex-col gap-2">
         <Link to={`/product/${product.id}`} className="flex-shrink-0">

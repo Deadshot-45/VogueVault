@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { FaRegHeart, FaHeart } from "react-icons/fa";
 
-const FavorateProduct = ({ product, favorites, setFavorite }) => {
+const FavorateProduct = ({ product, favorites, setFavorite, index }) => {
   const [isFavorate, setIsFavorate] = useState(() => {
     const newArray = JSON.parse(localStorage.getItem("favorate"));
     return newArray.some((item) => item.name === product.name);
@@ -30,7 +30,7 @@ const FavorateProduct = ({ product, favorites, setFavorite }) => {
   };
 
   return (
-    <div className="w-full flex items-center gap-6 p-4 bg-white rounded-lg shadow-sm border border-gray-200">
+    <div className={`w-full flex items-center gap-6 p-4 bg-white rounded-lg shadow-sm border border-gray-200 card-mount delay-${index % 5}`}>
       <div className="flex relative">
         {/* Product Image */}
         <Link to={`/product/${product.id}`} className="flex-shrink-0">

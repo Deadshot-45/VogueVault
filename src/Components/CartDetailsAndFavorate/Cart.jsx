@@ -35,9 +35,11 @@ const Cart = () => {
                 {cart.map((product, index) => (
                   <MapProduct
                     key={index}
+                    index={index}
                     product={product}
                     favorites={favorites}
                     setFavorite={setFavorite}
+                    
                   />
                 ))}
               </div>
@@ -73,6 +75,7 @@ const Cart = () => {
                 {favorites.map((product, index) => (
                   <FavorateProduct
                     key={index}
+                    index={index}
                     product={product}
                     favorites={favorites}
                     setFavorite={setFavorite}

@@ -25,7 +25,7 @@ const Womens = () => {
   };
 
   return (
-    <div className="space-y-16">
+    <div className="space-y-16 fade-in">
       {/* Hero Section */}
       <section className="relative h-[400px] max-xs:h-[250px]">
         <img
@@ -78,8 +78,12 @@ const Womens = () => {
       <section className="mx-auto px-4">
         <h2 className="text-3xl font-bold mb-8">Featured Products</h2>
         <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {womensProducts.map((product) => (
-            <Link key={product.id} to={`/product/${product.id}`}>
+          {womensProducts.map((product, index) => (
+            <Link
+              key={product.id}
+              to={`/product/${product.id}`}
+              className={`mx-auto card-mount delay-${index % 5}`}
+            >
               <ProductCard product={product} />
             </Link>
           ))}

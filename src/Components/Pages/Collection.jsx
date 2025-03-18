@@ -77,10 +77,10 @@ const Collection = () => {
     setCategory(value);
   };
 
-  const handleCategory = (e)=>{
+  const handleCategory = (e) => {
     const category = e.target.value;
-    category && setCategory(e.target.value)
-  }
+    category && setCategory(e.target.value);
+  };
 
   const handleSortByType = (value) => {
     setType(value);
@@ -91,7 +91,7 @@ const Collection = () => {
   };
 
   return (
-    <div className="flex gap-8 max-md:flex-col">
+    <div className="flex gap-8 max-md:flex-col fade-in">
       <aside className="w-64 relative max-lg:w-40 max-md:w-full max-md:flex max-md:justify-between flex-shrink-0">
         <div className="max-xs:flex justify-between max-md:items-center w-full">
           <h2 className="text-2xl font-semibold mb-6 max-md:mb-0 max-xs:mr-6">
@@ -195,11 +195,11 @@ const Collection = () => {
 
         <div className="grid  grid-cols-2 max-md:min-xs:grid-cols-2 min-xs:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           {filteredProducts.length > 0 ? (
-            filteredProducts.map((product) => (
+            filteredProducts.map((product, index) => (
               <Link
                 key={product.id}
                 to={`/product/${product.id}`}
-                className="mx-auto"
+                className={`mx-auto card-mount delay-${index % 5}`}
               >
                 <ProductsCard product={product} />
               </Link>

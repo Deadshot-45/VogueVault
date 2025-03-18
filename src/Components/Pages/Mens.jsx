@@ -24,7 +24,7 @@ const Mens = () => {
   };
 
   return (
-    <div className="space-y-16">
+    <div className="space-y-16 fade-in">
       {/* Hero Section */}
       <section className="relative h-[400px] max-xs:h-[25 0px]">
         <img
@@ -77,8 +77,13 @@ const Mens = () => {
       <section className="container mx-auto px-4 min-sm:max-lg:px-0">
         <h2 className="text-3xl font-bold mb-8">Featured Products</h2>
         <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {mensProducts.map((product) => (
-            <Link key={product.id} to={`/product/${product.id}`}>
+                    // In the Featured Products section:
+          {mensProducts.map((product, index) => (
+            <Link
+              key={product.id}
+              to={`/product/${product.id}`}
+              className={`mx-auto card-mount delay-${index % 5}`}
+            >
               <ProductCard product={product} />
             </Link>
           ))}

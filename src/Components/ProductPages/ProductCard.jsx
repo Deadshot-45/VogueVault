@@ -2,11 +2,11 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { FaHeart } from "react-icons/fa";
 
-const ProductCard = ({ product, showFavorite = false }) => {
+const ProductCard = ({ product, index, showFavorite = false }) => {
   return (
     <Link
       to={`/product/${product.id}`}
-      className="group relative bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-200"
+      className={`group relative bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-200 mx-auto card-mount delay-${index % 5}`}
     >
       <div className="aspect-square relative overflow-hidden">
         <img
