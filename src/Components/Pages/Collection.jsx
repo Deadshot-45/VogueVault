@@ -28,7 +28,7 @@ const Collection = () => {
     };
   }, [location.pathname, setGlobalSearchTerm, setSearchInput]);
 
-  const filteredProducts = useMemo(() => {
+  let filteredProducts = useMemo(() => {
     let filtered = products;
 
     if (category) {
@@ -78,8 +78,15 @@ const Collection = () => {
   };
 
   const handleCategory = (e) => {
+<<<<<<< HEAD
     const category = e.target.value;
     category && setCategory(e.target.value);
+=======
+    setCategory(e.target.value);
+  };
+  const handleType = (e) => {
+    setType(e.target.value);
+>>>>>>> c704ff501709a540c745299255a85d1ee3cd114b
   };
 
   const handleSortByType = (value) => {
@@ -99,22 +106,28 @@ const Collection = () => {
           </h2>
           <div className="flex gap-2">
             <select
-              onClick={handleCategory}
+              onChange={handleCategory}
               className="border border-zinc-700 outline-none bg-transparent py-1 rounded-sm hidden max-xs:block max-md:text-[10px] max-xs:[8px]"
             >
               <option value="">(select category)</option>
-              <option value="Men">Men</option>
-              <option value="Women">Women</option>
-              <option value="Kids">Kids</option>
+              {["Men", "Women", "Kids"].map((category, index) => (
+                <option key={index} value={category} className="">
+                  {category}
+                </option>
+              ))}
             </select>
             <select
-              onClick={handleCategory}
+              onChange={handleType}
               className="border border-zinc-700 outline-none bg-transparent py-1 rounded-sm hidden max-xs:block max-md:text-[10px] max-xs:[8px]"
             >
               <option value="">(select type)</option>
-              <option value="Men">Men</option>
-              <option value="Women">Women</option>
-              <option value="Kids">Kids</option>
+              {["TopWear", "BottomWear", "WinterWear"].map(
+                (category, index) => (
+                  <option key={index} value={category} className="">
+                    {category}
+                  </option>
+                )
+              )}
             </select>
           </div>
         </div>
