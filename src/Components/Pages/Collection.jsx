@@ -78,15 +78,10 @@ const Collection = () => {
   };
 
   const handleCategory = (e) => {
-<<<<<<< HEAD
-    const category = e.target.value;
-    category && setCategory(e.target.value);
-=======
     setCategory(e.target.value);
   };
   const handleType = (e) => {
     setType(e.target.value);
->>>>>>> c704ff501709a540c745299255a85d1ee3cd114b
   };
 
   const handleSortByType = (value) => {
