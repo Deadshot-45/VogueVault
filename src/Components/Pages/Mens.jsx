@@ -35,8 +35,12 @@ const Mens = () => {
         />
         <div className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center">
           <div className="text-center text-white space-y-4">
-            <h1 className="text-4xl font-bold max-xs:text-3xl">Men's Collection</h1>
-            <p className="text-lg max-xs:text-md">Discover our latest trends and styles</p>
+            <h1 className="text-4xl font-bold max-xs:text-3xl">
+              Men's Collection
+            </h1>
+            <p className="text-lg max-xs:text-md">
+              Discover our latest trends and styles
+            </p>
           </div>
         </div>
       </section>
@@ -77,7 +81,6 @@ const Mens = () => {
       <section className="container mx-auto px-4 min-sm:max-lg:px-0">
         <h2 className="text-3xl font-bold mb-8">Featured Products</h2>
         <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                    // In the Featured Products section:
           {mensProducts.map((product, index) => (
             <Link
               key={product.id}
