@@ -2,10 +2,11 @@ import React, { useEffect, useState, useCallback, useRef } from "react";
 import { assets, products } from "../../assets/frontend_assets/assets";
 import { NavigationLinks } from "./NavigationLinks";
 import { ActionButtons } from "./ActionButtons";
-import { Link, useLocation } from "react-router-dom";
+import { Link, NavLink, useLocation } from "react-router-dom";
 import { FaSearch, FaTimes, FaSearchDollar } from "react-icons/fa";
 import { MdOutlineMenu } from "react-icons/md";
 import { RxCross2 } from "react-icons/rx";
+import { navLinks } from "./NavigationLinks";
 
 const NavBar = () => {
   const [searchInput, setSearchInput] = useState(false);
@@ -82,10 +83,6 @@ const NavBar = () => {
     }
   }, []);
 
-  useEffect(() => {
-    console.log(isMenuOpen);
-  }, [isMenuOpen]);
-  
   return (
     <div className="bg-white/80 backdrop-blur-sm  border-b border-gray-200 sticky top-0 z-50 sm:px-4 fade-in">
       <div className="max-w-[1536px] mx-auto px-4 sm:px-0 lg:max-2xl:px-8 2xl:px-12">
@@ -112,7 +109,33 @@ const NavBar = () => {
                 />
               </button>
               {/* Navigation Links */}
-              <NavigationLinks setIsMenuOpen={setIsMenuOpen} />
+              <div className="flex items-center max-xm:px-8 max-xm:pl-0 space-x-8 2xl:space-x-12 max-md:w-full ml-4">
+                <ul className="flex items-center space-x-8 max-xm:w-full max-xm:flex-col max-xm:items-start max-xm:gap-4">
+                  {navLinks.map((link) => (
+                    <li
+                      key={link.to}
+                      onClick={() => {
+                        setIsMenuOpen(false);
+                        setSearchInput(false);
+                      }}
+                      className="max-xm:w-full max-md:border-b border-gray-300 pb-2"
+                    >
+                      <NavLink
+                        to={link.to}
+                        className={({ isActive }) =>
+                          `text-sm font-medium transition-colors duration-200 2xl:text-base  max-md:w-full ${
+                            isActive
+                              ? "text-black border-b-2 border-black max-xm:text-white max-xm:border-none"
+                              : "text-gray-500 hover:text-black max-xm:text-white"
+                          }`
+                        }
+                      >
+                        {link.text}
+                      </NavLink>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </div>
           )}
 
