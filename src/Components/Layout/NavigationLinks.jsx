@@ -1,8 +1,8 @@
 import React, { useContext, useEffect } from "react";
-import { NavLink, useNavigate, Link, useLocation } from "react-router-dom";
+import { NavLink, useNavigate,} from "react-router-dom";
 import { DataContext } from "../../Context/DataContext";
 
-export const NavigationLinks = () => {
+export const NavigationLinks = ({ setIsMenuOpen }) => {
   const { setSearchInput } = useContext(DataContext);
   const Navigate = useNavigate();
 
@@ -19,11 +19,16 @@ export const NavigationLinks = () => {
   }, []);
 
   return (
-    <div className="flex items-center max-xm:p-8 max-xm:pl-0 space-x-8 2xl:space-x-12 max-md:w-full ml-4">
+    <div className="flex items-center max-xm:px-8 max-xm:pl-0 space-x-8 2xl:space-x-12 max-md:w-full ml-4">
       <ul className="flex items-center space-x-8 max-xm:w-full max-xm:flex-col max-xm:items-start max-xm:gap-4">
         {navLinks.map((link) => (
           <li
             key={link.to}
+            onClick={() => {
+              setIsMenuOpen(false);
+              Navigate(link.to);
+              setSearchInput(false);
+            }}
             className="max-xm:w-full max-md:border-b border-gray-300 pb-2"
           >
             <NavLink
