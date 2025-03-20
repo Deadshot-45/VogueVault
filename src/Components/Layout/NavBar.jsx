@@ -1,21 +1,17 @@
-import React, {
-  useContext,
-  useEffect,
-  useState,
-  useCallback,
-  useRef,
-} from "react";
+import React, { useEffect, useState, useCallback, useRef } from "react";
 import { assets, products } from "../../assets/frontend_assets/assets";
 import { NavigationLinks } from "./NavigationLinks";
 import { ActionButtons } from "./ActionButtons";
 import { Link, useLocation } from "react-router-dom";
 import { FaSearch, FaTimes, FaSearchDollar } from "react-icons/fa";
 import { MdOutlineMenu } from "react-icons/md";
+import { RxCross2 } from "react-icons/rx";
 
 const NavBar = () => {
   const [searchInput, setSearchInput] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState([]);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const location = useLocation();
   const searchRef = useRef(null);
   // Check if current route is auth or cart page
@@ -38,7 +34,6 @@ const NavBar = () => {
       setSearchTerm("");
       setSearchResults([]);
     }
-    document.getElementById("show-navbar").classList.remove("max-[650px]:flex");
   }, [location.pathname, shouldHideSearch, searchInput]);
 
   // Focus search input when opened
@@ -48,26 +43,19 @@ const NavBar = () => {
     }
   }, [searchInput]);
 
+  // Hide the Menu
   useEffect(() => {
-    const navbar = document.getElementById("show-navbar");
-
     const handleClickOutside = (event) => {
-      if (
-        !navbar.contains(event.target) &&
-        !event.target.closest("a, button")
-      ) {
-        navbar.classList.remove("max-[650px]:flex");
-        navbar.classList.remove("opacity-0");
-        document.getElementById("show-navbar").setAttribute("disabled", false);
-      }
+      isMenuOpen &&
+        !event.target.closest(".menu-container") &&
+        !event.target.closest(".show-menu") &&
+        setIsMenuOpen(false);
     };
-
-    document.body.addEventListener("click", handleClickOutside);
-
+    document.addEventListener("click", handleClickOutside);
     return () => {
-      document.body.removeEventListener("click", handleClickOutside);
+      document.removeEventListener("click", handleClickOutside);
     };
-  }, []);
+  }, [isMenuOpen]);
 
   const ShowSearch = useCallback(() => {
     if (shouldHideSearch) return;
@@ -94,31 +82,39 @@ const NavBar = () => {
     }
   }, []);
 
+  useEffect(() => {
+    console.log(isMenuOpen);
+  }, [isMenuOpen]);
+  
   return (
     <div className="bg-white/80 backdrop-blur-sm  border-b border-gray-200 sticky top-0 z-50 sm:px-4 fade-in">
       <div className="max-w-[1536px] mx-auto px-4 sm:px-0 lg:max-2xl:px-8 2xl:px-12">
         <div className="flex items-center justify-between h-16 2xl:h-20">
-          <button
-            className="min-[650px]:hidden text-xl"
-            id="btn-disable"
-            onClick={() => {
-              document
-                .getElementById("show-navbar")
-                .classList.add("max-[650px]:flex");
-              document
-                .getElementById("show-navbar")
-                .setAttribute("disabled", true);
-            }}
-          >
-            <MdOutlineMenu />
-          </button>
-          <div
-            id="show-navbar"
-            className="hidden h-screen w-[200px] left-0 absolute top-0 bg-gray-700/90 flex-col"
-          >
-            {/* Navigation Links */}
-            <NavigationLinks />
-          </div>
+          {/* Mobile Menu Button */}
+          {!isMenuOpen && (
+            <button
+              className="md:hidden menu-container text-gray-600 hover:text-gray-900 transition duration-300 ease-in"
+              onClick={() => {
+                setIsMenuOpen(true);
+                setSearchInput(false);
+              }}
+            >
+              <MdOutlineMenu className="h-6 w-6 2xl:h-8 2xl:w-8" />
+            </button>
+          )}
+          {isMenuOpen && (
+            <div className="h-screen show-menu w-1/2 left-0 absolute top-0 z-50 flex bg-gray-700/90 flex-col">
+              <button className="text-white text-2xl w-full flex justify-end p-4">
+                <RxCross2
+                  onClick={() => {
+                    setIsMenuOpen(false);
+                  }}
+                />
+              </button>
+              {/* Navigation Links */}
+              <NavigationLinks setIsMenuOpen={setIsMenuOpen} />
+            </div>
+          )}
 
           {/* Logo */}
           <Link to="/" className="flex-shrink-0">
