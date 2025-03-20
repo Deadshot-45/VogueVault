@@ -37,13 +37,6 @@ const App = () => {
   const isAdminRoute = location.pathname.startsWith("/admin");
   const isProductRoute = location.pathname.startsWith("/product/");
 
-  // useEffect(() => {
-  //   axios
-  //     .get("http://localhost:5500/")
-  //     .then((response) => console.log(response.data))
-  //     .catch((error) => console.error(error));
-  // }, []);
-
   if (isAdminRoute) {
     return (
       <Routes>
