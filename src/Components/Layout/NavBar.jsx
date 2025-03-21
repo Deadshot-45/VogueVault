@@ -109,8 +109,8 @@ const NavBar = () => {
                 />
               </button>
               {/* Navigation Links */}
-              <div className="flex items-center max-xm:px-8 max-xm:pl-0 space-x-8 2xl:space-x-12 max-md:w-full ml-4">
-                <ul className="flex items-center space-x-8 max-xm:w-full max-xm:flex-col max-xm:items-start max-xm:gap-4">
+              <div className="flex items-center px-8 pl-0 space-x-8 w-full ml-4">
+                <ul className="flex space-x-8 w-full flex-col items-start gap-4">
                   {navLinks.map((link) => (
                     <li
                       key={link.to}
@@ -118,15 +118,13 @@ const NavBar = () => {
                         setIsMenuOpen(false);
                         setSearchInput(false);
                       }}
-                      className="max-xm:w-full max-md:border-b border-gray-300 pb-2"
+                      className="w-full border-b border-gray-300 pb-2"
                     >
                       <NavLink
                         to={link.to}
                         className={({ isActive }) =>
-                          `text-sm font-medium transition-colors duration-200 2xl:text-base  max-md:w-full ${
-                            isActive
-                              ? "text-black border-b-2 border-black max-xm:text-white max-xm:border-none"
-                              : "text-gray-500 hover:text-black max-xm:text-white"
+                          `text-sm font-medium transition-colors duration-200 2xl:text-base w-full ${
+                            isActive ? " text-white" : "text-white"
                           }`
                         }
                       >
