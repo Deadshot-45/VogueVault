@@ -55,8 +55,21 @@ const limiter = rateLimit({
 app.use(limiter);
 
 // CORS configuration
+
+const allowedOrigins = [
+  "https://vogue-vault-blue.vercel.app",
+  "http://localhost:5173",
+];
 const corsOptions = {
-  origin: true,
+  origin: function (origin, callback) {
+    // allow requests with no origin (like mobile apps, curl, etc.)
+    if (!origin) return callback(null, true);
+    if (allowedOrigins.includes(origin)) {
+      return callback(null, true);
+    } else {
+      return callback(new Error("Not allowed by CORS"));
+    }
+  },
   credentials: true,
   methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
   allowedHeaders: [
@@ -152,6 +165,12 @@ app.use((err, req, res) => {
         ? "Internal Server Error"
         : err.message,
   });
+});
+
+// Start the server
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Server running at http://localhost:${PORT}`);
 });
 
 // Export the Express API
