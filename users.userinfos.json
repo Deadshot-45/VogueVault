@@ -1,0 +1,190 @@
+[{
+  "_id": {
+    "$oid": "67dec23886ab21b0b2a2819c"
+  },
+  "name": "Mayank Sahu",
+  "age": null,
+  "email": "123@gmail.com",
+  "mobile": "1234567899",
+  "password": "$2b$10$TkkYfwgQte8.Lu/4M.k6BufMVHfYXzghB3DJ7ZbBihKnXJqZBJD3W",
+  "role": "user",
+  "avatar": "https://images.rawpixel.com/image_png_800/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDI0LTA5L3Jhd3BpeGVsX29mZmljZV8zMF9waG90b19vZl9tYW5faW5kaWFuX2FybXNfY3Jvc3NlZF9zZWxmLWNvbmZpZF8wMDgwMDBlNS00YjdiLTQ1N2UtYjA3Mi02NGMwOGIwMWQ2ZmEucG5n.png",
+  "address": null,
+  "cart": [
+    {
+      "_id": "67dfa578452634da475901d8",
+      "name": "Men Tapered Fit Flat-Front Trousers",
+      "description": "A lightweight, usually knitted, pullover shirt, close-fitting and with a round neckline and short sleeves, worn as an undershirt or outer garment.",
+      "price": 190,
+      "quantity": 5,
+      "size": "XL",
+      "category": "Men",
+      "subCategory": "Bottomwear"
+    }
+  ],
+  "orders": [],
+  "favorite": [],
+  "otp": null,
+  "otp_expire": null,
+  "token": null,
+  "reset_password_token": null,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67dec2dc86ab21b0b2a281a2"
+  },
+  "name": "Mayank Sahu",
+  "age": null,
+  "email": "1253@gmail.com",
+  "mobile": "1234567898",
+  "password": "$2b$10$6oxnFtoyUYG2Dt6usOH/2e2TyToERSpAvfTftCwBbOo5qCM0cQ1Vi",
+  "role": "user",
+  "avatar": "https://images.rawpixel.com/image_png_800/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDI0LTA5L3Jhd3BpeGVsX29mZmljZV8zMF9waG90b19vZl9tYW5faW5kaWFuX2FybXNfY3Jvc3NlZF9zZWxmLWNvbmZpZF8wMDgwMDBlNS00YjdiLTQ1N2UtYjA3Mi02NGMwOGIwMWQ2ZmEucG5n.png",
+  "address": null,
+  "cart": [],
+  "orders": [],
+  "favorite": [],
+  "otp": null,
+  "otp_expire": null,
+  "token": null,
+  "reset_password_token": null,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67e1048fcc693093ebca83a9"
+  },
+  "name": "Raj",
+  "age": null,
+  "email": "raj@example.com",
+  "mobile": "1234567890",
+  "password": "$2b$10$9Fsb4qxZHAA7I/z5Xeg6aeLEzTtj3u8lZUapxl6go..V9zQLtGXQW",
+  "role": "user",
+  "avatar": "https://images.rawpixel.com/image_png_800/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDI0LTA5L3Jhd3BpeGVsX29mZmljZV8zMF9waG90b19vZl9tYW5faW5kaWFuX2FybXNfY3Jvc3NlZF9zZWxmLWNvbmZpZF8wMDgwMDBlNS00YjdiLTQ1N2UtYjA3Mi02NGMwOGIwMWQ2ZmEucG5n.png",
+  "address": null,
+  "cart": [],
+  "orders": [],
+  "favorite": [],
+  "otp": null,
+  "otp_expire": null,
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InJhakBleGFtcGxlLmNvbSIsImlhdCI6MTc0MjgwMDA1N30.G3evUmbrfJ_6aWAmTchBi8Pa6Xw5e0C05s_XOfv7crU",
+  "reset_password_token": null,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67e104f5cc693093ebca83b3"
+  },
+  "name": "Mayank Sahu",
+  "age": null,
+  "email": "12354@gmail.com",
+  "mobile": "1526347890",
+  "password": "$2b$10$07AT9zvlR450MEFGzfwGSeEO.gIl0bWDuQRj4SB9yQI5R7hzJP54C",
+  "role": "user",
+  "avatar": "https://images.rawpixel.com/image_png_800/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDI0LTA5L3Jhd3BpeGVsX29mZmljZV8zMF9waG90b19vZl9tYW5faW5kaWFuX2FybXNfY3Jvc3NlZF9zZWxmLWNvbmZpZF8wMDgwMDBlNS00YjdiLTQ1N2UtYjA3Mi02NGMwOGIwMWQ2ZmEucG5n.png",
+  "address": null,
+  "cart": [],
+  "orders": [],
+  "favorite": [],
+  "otp": null,
+  "otp_expire": null,
+  "token": null,
+  "reset_password_token": null,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67e107a7cc693093ebca83c1"
+  },
+  "name": "Sunny",
+  "age": 0,
+  "email": "sunny@gmail.com",
+  "mobile": "3698521472",
+  "password": "$2b$10$pqXq6uZQVnJAwzxTpTSRDeRh/0K7XznSnrgGry/6p36tfLHK3Xm8e",
+  "role": "user",
+  "avatar": "http://localhost:5500/e00ac274-9f56-4a95-822f-a1657808699a-1746011011860-336173798.jpg",
+  "address": "Ram Nagar",
+  "cart": [
+    {
+      "_id": "67dfa578452634da475901d2",
+      "name": "Women Round Neck Cotton Top",
+      "image": [
+        "http://localhost:5500/p_img1.png"
+      ],
+      "description": "A lightweight, usually knitted, pullover shirt, close-fitting and with a round neckline and short sleeves, worn as an undershirt or outer garment.",
+      "price": 100,
+      "quantity": 9,
+      "size": "M",
+      "category": "women",
+      "subCategory": "Topwear",
+      "favorate": false,
+      "stock": 100
+    },
+    {
+      "_id": "67dfa578452634da475901d3",
+      "name": "Men Round Neck Pure Cotton T-shirt",
+      "image": [
+        "http://localhost:5500/p_img2_1.png",
+        "http://localhost:5500/p_img2_2.png",
+        "http://localhost:5500/p_img2_3.png",
+        "http://localhost:5500/p_img2_4.png"
+      ],
+      "description": "A lightweight, usually knitted, pullover shirt, close-fitting and with a round neckline and short sleeves, worn as an undershirt or outer garment.",
+      "price": 200,
+      "quantity": 1,
+      "size": "M",
+      "category": "Men",
+      "subCategory": "Bottomwear",
+      "favorate": false,
+      "stock": 100
+    }
+  ],
+  "orders": [],
+  "favorite": [
+    {
+      "_id": "67dfa578452634da475901da",
+      "name": "Girls Round Neck Cotton Top",
+      "image": [
+        "http://localhost:5500/p_img9.png"
+      ],
+      "description": "A lightweight, usually knitted, pullover shirt, close-fitting and with a round neckline and short sleeves, worn as an undershirt or outer garment.",
+      "price": 100,
+      "category": "Kids",
+      "subCategory": "Topwear",
+      "favorate": true,
+      "stock": 100
+    },
+    {
+      "_id": "67dfa578452634da475901d7",
+      "name": "Girls Round Neck Cotton Top",
+      "image": [
+        "http://localhost:5500/p_img6.png"
+      ],
+      "description": "A lightweight, usually knitted, pullover shirt, close-fitting and with a round neckline and short sleeves, worn as an undershirt or outer garment.",
+      "price": 140,
+      "category": "Kids",
+      "subCategory": "Topwear",
+      "favorate": true,
+      "stock": 100
+    },
+    {
+      "_id": "67dfa578452634da475901d2",
+      "name": "Women Round Neck Cotton Top",
+      "image": [
+        "http://localhost:5500/p_img1.png"
+      ],
+      "description": "A lightweight, usually knitted, pullover shirt, close-fitting and with a round neckline and short sleeves, worn as an undershirt or outer garment.",
+      "price": 100,
+      "category": "women",
+      "subCategory": "Topwear",
+      "favorate": true,
+      "stock": 100
+    }
+  ],
+  "otp": null,
+  "otp_expire": null,
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InN1bm55QGdtYWlsLmNvbSIsImlhdCI6MTc0NDg2NjkzMH0.pc1fneRWOErRHf-jpkmHnpK86eY_r1brCpJ7045IFUs",
+  "reset_password_token": null,
+  "__v": 66
+}]
