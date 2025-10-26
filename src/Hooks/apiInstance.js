@@ -1,8 +1,8 @@
 import axios from "axios";
 
 // Always use the Vercel URL since we want to use the deployed backend
-// const API_BASE_URL = "https://vault-vogue-expressjs.vercel.app/api/data";
-const API_BASE_URL = "http://localhost:6500/api/data"; // Local development URL
+const API_BASE_URL = "https://vault-vogue-expressjs.vercel.app/api/data";
+// const API_BASE_URL = "http://localhost:6500/api/data"b; // Local development URL
 
 const API_TIMEOUT = 10000;
 
