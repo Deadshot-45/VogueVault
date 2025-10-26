@@ -1,152 +1,182 @@
-import React, { useEffect } from "react";
+import { Suspense, useContext } from "react";
 import { Route, Routes, useLocation } from "react-router-dom";
-import AddItemsPage from "./Components/AdminPage/AddItemsPage";
-import AdminDashBoard from "./Components/AdminPage/AdminDashBoard";
-import AdminLayout from "./Components/AdminPage/AdminLayout";
-import AdminLogin from "./Components/AdminPage/AdminLogin";
-import DashBoard from "./Components/AdminPage/DashBoard";
-import ListItems from "./Components/AdminPage/ListItems";
-import OrdersPage from "./Components/AdminPage/OrdersPage";
-import Footer from "./Components/Layout/Footer";
+import ScrollToTop from "./Components/Layout/ScrollToTop";
 import NavBar from "./Components/Layout/NavBar";
-import About from "./Components/Pages/About";
-import Cart from "./Components/CartDetailsAndFavorate/Cart";
-import Collection from "./Components/Pages/Collection";
-import Contact from "./Components/Pages/Contact";
-import Home from "./Components/Pages/Home";
-import NotFound from "./Components/Pages/NotFound";
-import SignIn from "./Components/Pages/SignIn";
-import SignUp from "./Components/Pages/SignUp";
-import Unauthorized from "./Routes/Unauthorized";
-import UserAccount from "./Components/user/UserAccount";
-import ProductPage from "./Components/ProductPages/ProductPage";
-import AddressDetails from "./Components/PaymentPages/AddressDetails";
+import Footer from "./Components/Layout/Footer";
 import PrivateRoute from "./Routes/PrivateRoute";
 import ProtectedRoute from "./Routes/ProtectedRoute";
-import Delivery from "./Components/Pages/Delivery";
-import PrivacyPolicy from "./Components/Pages/PrivacyPolicy";
-import Mens from "./Components/Pages/Mens";
-import Womens from "./Components/Pages/Womens";
-import Kids from "./Components/Pages/Kids";
-import Favorites from "./Components/user/Favorites";
-import axios from "axios";
-import ScrollToTop from "./Components/Layout/ScrollToTop";
+import { AuthContext } from "./Context/AuthContext";
+import LoadingSpinner from "./Components/Common/LoadingSpinner";
+import ErrorBoundary from "./Components/Common/ErrorBoundary";
+import * as Lazy from "./Components/Common/LazyComponents";
+import AdminLayout from "./Components/AdminPage/AdminLayout";
+import Notification from "./Components/Common/Notification";
 
 const App = () => {
   const location = useLocation();
   const isAdminRoute = location.pathname.startsWith("/admin");
   const isProductRoute = location.pathname.startsWith("/product/");
+  const { isLoading: isAuthLoading } = useContext(AuthContext);
+
+  // Simplify suspense handling to avoid stacked error boundaries
+  const withSuspense = (Component) => (
+    <Suspense fallback={<LoadingSpinner />}>
+      <ErrorBoundary>{Component}</ErrorBoundary>
+    </Suspense>
+  );
+
+  if (isAuthLoading) {
+    return (
+      <div className="min-h-[100dvh] flex items-center justify-center w-full border">
+        <LoadingSpinner />
+      </div>
+    );
+  }
 
   if (isAdminRoute) {
     return (
-      <Routes>
-        {/* Admin Routes */}
-        <Route
-          path="/admin/login"
-          element={
-            <AdminLayout>
-              <AdminLogin />
-            </AdminLayout>
-          }
-        />
-        <Route
-          path="/admin"
-          element={
-            <ProtectedRoute role="admin">
-              <AdminDashBoard>
-                <DashBoard />
-              </AdminDashBoard>
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/admin/itemslist"
-          element={
-            <ProtectedRoute role="admin">
-              <AdminDashBoard>
-                <ListItems />
-              </AdminDashBoard>
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/admin/additems"
-          element={
-            <ProtectedRoute role="admin">
-              <AdminDashBoard>
-                <AddItemsPage />
-              </AdminDashBoard>
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/admin/orders"
-          element={
-            <ProtectedRoute role="admin">
-              <AdminDashBoard>
-                <OrdersPage />
-              </AdminDashBoard>
-            </ProtectedRoute>
-          }
-        />
-      </Routes>
+      <ErrorBoundary>
+        <Suspense fallback={<LoadingSpinner />}>
+          <Routes>
+            <Route path="/admin/login" element={<Lazy.AdminLogin />} />
+            <Route
+              index
+              element={
+                <ProtectedRoute>
+                  <AdminLayout>
+                    <Lazy.DashBoard />
+                  </AdminLayout>
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/admin/dashboard"
+              element={
+                <ProtectedRoute>
+                  <AdminLayout>
+                    <Lazy.DashBoard />
+                  </AdminLayout>
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/admin/products"
+              element={
+                <ProtectedRoute>
+                  <AdminLayout>
+                    <Lazy.Products />
+                  </AdminLayout>
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/admin/orders"
+              element={
+                <ProtectedRoute>
+                  <AdminLayout>
+                    <Lazy.OrdersPage />
+                  </AdminLayout>
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/admin/users"
+              element={
+                <ProtectedRoute>
+                  <AdminLayout>
+                    <Lazy.Users />
+                  </AdminLayout>
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/admin/settings"
+              element={
+                <ProtectedRoute>
+                  <AdminLayout>
+                    <Lazy.Settings />
+                  </AdminLayout>
+                </ProtectedRoute>
+              }
+            />
+          </Routes>
+        </Suspense>
+      </ErrorBoundary>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-100">
-      <ScrollToTop />
-      <NavBar />
-      <main className={`${isProductRoute ? "w-full" : "w-[90%] mx-auto"} pt-8`}>
-        <Routes>
-          {/* Public Routes */}
-          <Route path="/" element={<Home />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/collection" element={<Collection />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/signin" element={<SignIn />} />
-          <Route path="/signup" element={<SignUp />} />
-          <Route path="/unauthorized" element={<Unauthorized />} />
-          <Route path="/delivery" element={<Delivery />} />
-          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-          <Route path="/product/:id" element={<ProductPage />} />
-          <Route path="/cart" element={<Cart />} />
-          <Route path="/mens" element={<Mens />} />
-          <Route path="/womens" element={<Womens />} />
-          <Route path="/kids" element={<Kids />} />
+    <ErrorBoundary>
+      <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-100">
+        <ScrollToTop />
+        <NavBar />
+        {/* Global Notifications */}
+        <Notification />
+        <main
+          className={`${isProductRoute ? "w-full" : "w-[90%] mx-auto"} pt-8`}
+        >
+          <Routes>
+            {/* Public Routes */}
+            <Route path="/" element={withSuspense(<Lazy.Home />)} />
+            <Route path="/about" element={withSuspense(<Lazy.About />)} />
+            <Route
+              path="/collection"
+              element={withSuspense(<Lazy.Collection />)}
+            />
+            <Route path="/contact" element={withSuspense(<Lazy.Contact />)} />
+            <Route path="/signin" element={withSuspense(<Lazy.SignIn />)} />
+            <Route path="/signup" element={withSuspense(<Lazy.SignUp />)} />
+            <Route
+              path="/unauthorized"
+              element={withSuspense(<Lazy.Unauthorized />)}
+            />
+            <Route path="/delivery" element={withSuspense(<Lazy.Delivery />)} />
+            <Route
+              path="/privacy-policy"
+              element={withSuspense(<Lazy.PrivacyPolicy />)}
+            />
+            <Route
+              path="/product/:id"
+              element={withSuspense(<Lazy.ProductPage />)}
+            />
+            <Route path="/cart" element={withSuspense(<Lazy.Cart />)} />
+            <Route path="/mens" element={withSuspense(<Lazy.Mens />)} />
+            <Route path="/womens" element={withSuspense(<Lazy.Womens />)} />
+            <Route path="/kids" element={withSuspense(<Lazy.Kids />)} />
 
-          {/* Private Routes */}
-          <Route
-            path="/user/account"
-            element={
-              <PrivateRoute>
-                <UserAccount />
-              </PrivateRoute>
-            }
-          />
-          <Route
-            path="/payment"
-            element={
-              <PrivateRoute>
-                <AddressDetails />
-              </PrivateRoute>
-            }
-          />
-          <Route
-            path="/favorites"
-            element={
-              <PrivateRoute>
-                <Favorites />
-              </PrivateRoute>
-            }
-          />
+            {/* Private Routes */}
+            <Route
+              path="/user/account/:userId"
+              element={withSuspense(
+                <PrivateRoute>
+                  <Lazy.UserAccount />
+                </PrivateRoute>
+              )}
+            />
+            <Route
+              path="/payment"
+              element={withSuspense(
+                <PrivateRoute>
+                  <Lazy.AddressDetails />
+                </PrivateRoute>
+              )}
+            />
+            <Route
+              path="/favorites"
+              element={withSuspense(
+                <PrivateRoute>
+                  <Lazy.Favorites />
+                </PrivateRoute>
+              )}
+            />
 
-          {/* Not Found Route */}
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </main>
-      <Footer />
-    </div>
+            {/* Not Found Route */}
+            <Route path="*" element={withSuspense(<Lazy.NotFound />)} />
+          </Routes>
+        </main>
+        <Footer />
+      </div>
+    </ErrorBoundary>
   );
 };
 

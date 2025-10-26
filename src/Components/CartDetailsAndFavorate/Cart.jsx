@@ -1,23 +1,28 @@
-import React, { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { DataContext } from "../../Context/DataContext";
 import MapProduct from "./MapProduct";
-import CartTotal from "./CartTotal";
 import FavorateProduct from "./FavorateProduct";
 import { FaShoppingBag, FaHeart } from "react-icons/fa";
+import { AuthContext } from "../../Context/AuthContext";
+import { useCartApi } from "../../Hooks/UseCart";
 
 const Cart = () => {
-  const { cart, favorites, setFavorite, user } = useContext(DataContext);
-  const [cartTotal, setCartTotal] = useState(0);
-  const [Coupon, setCoupon] = useState("");
+  const { cart, favorites, setCart } = useContext(DataContext);
+  const { isLoggedIn } = useContext(AuthContext);
+  const { data, success, cartFetching } = useCartApi();
 
   useEffect(() => {
-    const total = cart.reduce(
-      (acc, item) => acc + item.price * item.quantity,
-      0
-    );
-    setCartTotal(total);
-  }, [cart]);
+    if (isLoggedIn) {
+      cartFetching(isLoggedIn);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (data && success) {
+      setCart(data);
+    }
+  }, [data, setCart, success]);
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -30,17 +35,10 @@ const Cart = () => {
               Shopping Cart
             </h1>
 
-            {cart && cart.length > 0 ? (
+            {cart.length > 0 ? (
               <div className="space-y-6">
                 {cart.map((product, index) => (
-                  <MapProduct
-                    key={index}
-                    index={index}
-                    product={product}
-                    favorites={favorites}
-                    setFavorite={setFavorite}
-                    
-                  />
+                  <MapProduct key={product?._id || index} product={product} />
                 ))}
               </div>
             ) : (
@@ -50,7 +48,7 @@ const Cart = () => {
                   Your cart is empty
                 </p>
                 <p className="text-gray-500 mb-6">
-                  Looks like you haven't added anything to your cart yet.
+                  Looks like you haven&apos;t added anything to your cart yet.
                 </p>
                 <Link
                   to="/collection"
@@ -63,7 +61,7 @@ const Cart = () => {
           </div>
 
           {/* Favorites Section */}
-          {favorites && favorites.length > 0 && (
+          {Array.isArray(favorites) && favorites.length > 0 && (
             <div>
               <div className="flex items-center gap-2 mb-6">
                 <FaHeart className="h-5 w-5 text-red-500" />
@@ -74,11 +72,8 @@ const Cart = () => {
               <div className="flex flex-wrap flex-col gap-6">
                 {favorites.map((product, index) => (
                   <FavorateProduct
-                    key={index}
-                    index={index}
+                    key={product?._id || index}
                     product={product}
-                    favorites={favorites}
-                    setFavorite={setFavorite}
                   />
                 ))}
               </div>
@@ -87,7 +82,7 @@ const Cart = () => {
         </div>
 
         {/* Cart Summary */}
-        {cart && cart.length > 0 && (
+        {/* {isValidCart && (
           <div className="lg:w-96">
             <CartTotal
               cartTotal={cartTotal}
@@ -96,7 +91,7 @@ const Cart = () => {
               setCoupon={setCoupon}
             />
           </div>
-        )}
+        )} */}
       </div>
     </div>
   );

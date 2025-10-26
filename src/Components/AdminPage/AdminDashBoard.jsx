@@ -5,20 +5,41 @@ import { IoIosAddCircleOutline } from "react-icons/io";
 import { LiaListUlSolid } from "react-icons/lia";
 import { BsBoxes } from "react-icons/bs";
 import { AuthContext } from "../../Context/AuthContext";
+import { DataContext } from "../../Context/DataContext";
 
 const AdminDashBoard = ({ children }) => {
   const navigate = useNavigate();
   const { setAdmin, setIsLoggedIn } = useContext(AuthContext);
+  const { setCart, setCartCount, setCartTotal, setIsCart } =
+    useContext(DataContext);
 
   const handleLogout = () => {
     try {
-      // Clear states and storage first
+      // First clear all authentication data
       setAdmin(null);
-      setIsLoggedIn(false);
-      localStorage.removeItem("admin");
+      setIsLoggedIn("");
 
-      // Then navigate
-      navigate("/admin/login", { replace: true });
+      // Clear cart data from state
+      setCart([]);
+      setCartCount(0);
+      setCartTotal(0);
+      setIsCart(false);
+
+      // Clear all localStorage data
+      localStorage.removeItem("admin");
+      localStorage.removeItem("token");
+      localStorage.removeItem("user");
+      localStorage.removeItem("cart");
+      localStorage.removeItem("carttotal");
+      localStorage.removeItem("shipping");
+      localStorage.removeItem("gst");
+      localStorage.removeItem("totalPrice");
+      localStorage.removeItem("Coupon");
+
+      // Use a small delay to ensure state is cleared before navigation
+      setTimeout(() => {
+        navigate("/admin/login", { replace: true });
+      }, 100);
     } catch (error) {
       console.error("Error during logout:", error);
     }
@@ -38,7 +59,7 @@ const AdminDashBoard = ({ children }) => {
           <button
             type="button"
             onClick={handleLogout}
-            className="h-10 py-2 px-6 text-sm bg-zinc-700 text-white rounded-full"
+            className="h-10 py-2 px-6 text-sm bg-zinc-700 text-white rounded-full hover:bg-zinc-800 transition-colors duration-200"
           >
             Logout
           </button>
@@ -48,24 +69,29 @@ const AdminDashBoard = ({ children }) => {
         <article className="w-[220px] min-h-[100%] flex flex-col gap-3 items-end py-10 border-r border-zinc-300">
           <Link
             to={"/admin/additems"}
-            className="w-full cursor-pointer flex gap-2 items-center p-3 border-t border-b border-l border-zinc-300"
+            className="flex items-center gap-2 text-sm font-medium text-zinc-700 hover:text-black transition-colors duration-200"
           >
-            <IoIosAddCircleOutline /> <p>Add items</p>
+            <IoIosAddCircleOutline className="h-5 w-5" />
+            Add Items
           </Link>
           <Link
-            to={"/admin/itemslist"}
-            className="w-full cursor-pointer flex gap-2 items-center p-3 border-t border-b border-l border-zinc-300"
+            to={"/admin/listitems"}
+            className="flex items-center gap-2 text-sm font-medium text-zinc-700 hover:text-black transition-colors duration-200"
           >
-            <LiaListUlSolid /> <p>List items</p>
+            <LiaListUlSolid className="h-5 w-5" />
+            List Items
           </Link>
           <Link
             to={"/admin/orders"}
-            className="w-full cursor-pointer flex gap-2 items-center p-3 border-t border-b border-l border-zinc-300"
+            className="flex items-center gap-2 text-sm font-medium text-zinc-700 hover:text-black transition-colors duration-200"
           >
-            <BsBoxes /> <p>Orders</p>
+            <BsBoxes className="h-5 w-5" />
+            Orders
           </Link>
         </article>
-        {children}
+        <article className="w-[calc(100%-240px)] min-h-screen py-10">
+          {children}
+        </article>
       </section>
     </section>
   );

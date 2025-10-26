@@ -1,6 +1,11 @@
-import React from 'react'
+
 
 const Subscribe = () => {
+  const handleNewsletterSubmit = (e) => {
+    e.preventDefault();
+    e.target.reset();
+    window.location.reload();
+  };
   return (
     <section className="mb-32 w-[100%]">
         <article className="flex gap-4 flex-col justify-center items-center">
@@ -11,7 +16,7 @@ const Subscribe = () => {
             Lorem Ipsum is simply dummy text of the printing and typesetting
             industry.
           </p>
-          <form className="flex gap-2 ">
+          <form className="flex gap-2" onSubmit={handleNewsletterSubmit}>
               <input
                 type="email"
                 placeholder="Enter your email"

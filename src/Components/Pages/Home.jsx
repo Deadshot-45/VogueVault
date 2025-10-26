@@ -1,20 +1,56 @@
-import React, { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { assets, products } from "../../assets/frontend_assets/assets";
+import { assets } from "../../assets/frontend_assets/assets";
 import ProductsCard from "../ProductPages/ProductsCard";
 import Subscribe from "../ProductPages/Subscribe";
+import { DataContext } from "../../Context/DataContext";
+import { useGetApiProducts } from "../../Hooks/UseGetApiProducts";
 
 const Home = () => {
+  const { products, setProducts } = useContext(DataContext);
+  const [page, setPage] = useState(1);
+  const { data, isLoading, error } = useGetApiProducts(page);
+
+  useEffect(() => {
+    if (data.length) {
+      console.log(data);
+      setProducts(data);
+    }
+  }, [data, setProducts]);
+
+  // eslint-disable-next-line no-unused-vars
+  const handlePageChange = (newPage) => {
+    setPage(newPage);
+  };
+
+  if (isLoading && page === 1) {
+    return (
+      <div className="flex justify-center items-center min-h-[60vh]">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-black"></div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="flex justify-center items-center min-h-[60vh]">
+        <p className="text-red-500">{error}</p>
+      </div>
+    );
+  }
+
   const recentProducts = products
     .sort((a, b) => new Date(b.dateAdded) - new Date(a.dateAdded))
     .slice(0, 10);
   const bestseller = products
     .filter((product) => product.bestseller)
-    .map((product) => product)
-    .slice(0, 5);
+    .slice(0, 10);
+
+
+    
   return (
     <div className="space-y-16">
-      <header className="relative h-[68dvh] lg:h-[40dvh] max-sm:h-[15dvh] sm:h-[30dvh] flex justify-between w-full fade-in">
+      <header className="relative h-[68dvh] lg:h-[40dvh] max-sm:h-[15dvh] sm:h-[30dvh] flex justify-between w-full">
         <div className="w-1/2 flex flex-col justify-center h-full">
           <article className="w-[60%] max-sm:w-[80%] sm:w-[70%] flex items-center mx-auto gap-2">
             <div className="border w-8"></div>
@@ -43,7 +79,7 @@ const Home = () => {
         </div>
       </header>
 
-      <section className="fade-in">
+      <section>
         <article className="flex justify-center items-center gap-3 mb-6">
           <h1 className="font-bold text-3xl max-sm:text-2xl font-mono text-zinc-500">
             LATEST <span className="text-black">COLLECTIONS</span>
@@ -57,11 +93,11 @@ const Home = () => {
           </p>
         </article>
         <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
-          {recentProducts.map((product, index) => (
+          {recentProducts.map((product) => (
             <Link
-              key={product.id}
-              to={`/product/${product.id}`}
-              className={`mx-auto card-mount delay-${index % 5}`}
+              key={product._id}
+              to={`/product/${product._id}`}
+              className="mx-auto"
             >
               <ProductsCard product={product} />
             </Link>
@@ -69,7 +105,7 @@ const Home = () => {
         </div>
       </section>
 
-      <section className="fade-in">
+      <section>
         <article className="flex justify-center items-center gap-2 mb-6">
           <h1 className="font-bold text-3xl max-sm:text-2xl font-mono text-zinc-500">
             BEST <span className="text-black">SELLERS</span>
@@ -83,11 +119,11 @@ const Home = () => {
           </p>
         </article>
         <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
-          {bestseller.map((product, index) => (
+          {bestseller.map((product) => (
             <Link
-              key={product.id}
-              to={`/product/${product.id}`}
-              className={`mx-auto card-mount delay-${index % 5}`}
+              key={product._id}
+              to={`/product/${product._id}`}
+              className="mx-auto"
             >
               <ProductsCard product={product} />
             </Link>
@@ -105,7 +141,7 @@ export default Home;
 
 const CompanyInfo = () => {
   return (
-    <section className="grid grid-cols-1 md:grid-cols-3 gap-8 fade-in">
+    <section className="grid grid-cols-1 md:grid-cols-3 gap-8">
       <article className="text-center min-h-[120px] px-2 py-6 flex flex-col items-center">
         <img
           src={assets.exchange_icon}

@@ -1,75 +1,63 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
+import PropTypes from "prop-types";
 
-const ErrorBoundary = ({ children }) => {
-  const [hasError, setHasError] = useState(false);
-  const [error, setError] = useState(null);
-  const [errorInfo, setErrorInfo] = useState(null);
+class ErrorBoundary extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { hasError: false, error: null, errorInfo: null };
+  }
 
-  useEffect(() => {
-    const errorHandler = (error) => {
-      setHasError(true);
-      setError(error);
-      // Log the error to an error reporting service
-      console.error("Error caught by ErrorBoundary:", error);
-    };
+  static getDerivedStateFromError(error) {
+    return { hasError: true, error };
+  }
 
-    const rejectionHandler = (event) => {
-      errorHandler(event.reason);
-    };
+  componentDidCatch(error, errorInfo) {
+    this.setState({
+      error: error,
+      errorInfo: errorInfo,
+    });
+    // Log error to an error reporting service
+    console.error("Error caught by boundary:", error, errorInfo);
+  }
 
-    window.addEventListener("error", errorHandler);
-    window.addEventListener("unhandledrejection", rejectionHandler);
+  handleReset = () => {
+    this.setState({ hasError: false, error: null, errorInfo: null });
+  };
 
-    return () => {
-      window.removeEventListener("error", errorHandler);
-      window.removeEventListener("unhandledrejection", rejectionHandler);
-    };
-  }, []);
-
-  if (hasError) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-100">
-        <div className="bg-white p-8 rounded-lg shadow-md max-w-md w-full">
-          <h1 className="text-2xl font-bold text-red-600 mb-4">
-            Something went wrong
-          </h1>
-          <p className="text-gray-600 mb-4">
-            We're sorry, but something went wrong. Please try refreshing the
-            page or contact support if the problem persists.
-          </p>
-          <button
-            onClick={() => {
-              setHasError(false);
-              setError(null);
-              setErrorInfo(null);
-              window.location.reload();
-            }}
-            className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition-colors"
-          >
-            Refresh Page
-          </button>
-          {process.env.NODE_ENV === "development" && error && (
-            <div className="mt-4 p-4 bg-gray-100 rounded overflow-auto">
-              <pre className="text-sm text-red-800">{error.toString()}</pre>
-              {errorInfo && (
-                <pre className="text-sm text-gray-600 mt-2">
-                  {errorInfo.componentStack}
-                </pre>
-              )}
+  render() {
+    if (this.state.hasError) {
+      return (
+        <div className="min-h-screen flex items-center justify-center bg-gray-50">
+          <div className="max-w-md w-full p-6 bg-white rounded-lg shadow-lg">
+            <h2 className="text-2xl font-bold text-red-600 mb-4">
+              Something went wrong
+            </h2>
+            <p className="text-gray-600 mb-4">
+              We apologize for the inconvenience. Please try refreshing the page
+              or contact support if the problem persists.
+            </p>
+            <div className="mb-4">
+              <p className="text-sm text-gray-500">
+                Error details: {this.state.error?.message}
+              </p>
             </div>
-          )}
+            <button
+              onClick={this.handleReset}
+              className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition-colors duration-200"
+            >
+              Try Again
+            </button>
+          </div>
         </div>
-      </div>
-    );
-  }
+      );
+    }
 
-  try {
-    return children;
-  } catch (error) {
-    setHasError(true);
-    setError(error);
-    return null;
+    return this.props.children;
   }
+}
+
+ErrorBoundary.propTypes = {
+  children: PropTypes.node.isRequired,
 };
 
 export default ErrorBoundary;

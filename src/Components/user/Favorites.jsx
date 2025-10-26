@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import { useContext} from "react";
 import { Link } from "react-router-dom";
 import { DataContext } from "../../Context/DataContext";
 import { FaHeart } from "react-icons/fa";
@@ -14,16 +14,15 @@ const Favorites = () => {
           My Favorites
         </h1>
         <span className="text-sm text-gray-500 2xl:text-base">
-          {favorites.length} items
+          {favorites?.length} items
         </span>
       </div>
 
-      {favorites.length > 0 ? (
+      {favorites?.length > 0 ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:max-2xl:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-6">
-          {favorites.map((product, index) => (
+          {favorites.map((product) => (
             <ProductCard
-              key={product.id}
-              index={index}
+              key={product._id}
               product={product}
               showFavorite={true}
             />

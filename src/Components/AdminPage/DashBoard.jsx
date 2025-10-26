@@ -1,95 +1,103 @@
-import React from "react";
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { useAdminApi } from "../../Hooks/useAdminApi";
 
-const DashBoard = () => {
+const Dashboard = () => {
+  const [apiData, setApiData] = useState([]);
+  const [stats, setStats] = useState({});
+  const {  data, getDashboardStats } = useAdminApi();
+
+  useEffect(() => {
+    getDashboardStats();
+  }, []);
+
+  useEffect(() => {
+    if (data) {
+    setApiData(data);
+    setStats(data.stats);
+    }
+  }, [data]);
+
   return (
-    <section className="w-[calc(100%-220px)] p-10">
-      <h1 className="text-xl font-semibold">Admin DashBoard</h1>
-      <article className="flex flex-wrap gap-4 mt-4">
-        <div className="w-[300px] p-4 text-gray-500 border border-zinc-400 rounded-sm hover:bg-zinc-100 hover:text-zinc-700">
-          <p
-            className="text-sm  hover:text-gray-900 transition duration
-                300 ease-in-out"
-          >
-            Total Orders
-          </p>
-          <p className="text-2xl font-semibold text-zinc-700">100</p>
-        </div>
-        <div className="w-[300px] p-4 border border-zinc-400 rounded-sm hover:bg-zinc-100 hover:text-zinc-700">
-          <p
-            className="text-sm text-gray-500 hover:text-gray-900 transition duration
-                300 ease-in-out"
-          >
-            Total Sales
-          </p>
-          <p className="text-2xl font-semibold text-zinc-700">1000</p>
-          <div className="flex justify-between">
-            <p>Last Month :</p> <p>900</p>
-          </div>
-        </div>
-        <div className="w-[300px] p-4 border border-zinc-400 rounded-sm hover:bg-zinc-100 hover:text-zinc-700">
-          <p
-            className="text-sm text-gray-500 hover:text-gray-900 transition duration
-                    300 ease-in-out"
-          >
-            Total Customers
-          </p>
-          <p className="text-2xl font-semibold text-zinc-700">1000</p>
-          <div className="flex justify-between">
-            <p>New Customers :</p> <p>100</p>
-          </div>
-        </div>
-        <div className="w-[300px] p-4 border border-zinc-400 rounded-sm hover:bg-zinc-100 hover:text-zinc-700">
-          <p
-            className="text-sm text-gray-500 hover:text-gray-900 transition duration
-                        300 ease-in-out"
-          >
-            Total Products
-          </p>
-          <p className="text-2xl font-semibold text-zinc-700">1000</p>
-        </div>
-        <div className="w-[300px] p-4 border border-zinc-400 rounded-sm hover:bg-zinc-100 hover:text-zinc-700">
-          <p
-            className="text-sm text-gray-500 hover:text-gray-900 transition duration
-                            300 ease-in-out"
-          >
-            Total Revenue
-          </p>
-          <p className="text-2xl font-semibold text-zinc-700">1000</p>
-          <div className="flex justify-between">
-            <p>Last Month :</p> <p>100</p>
-          </div>
-        </div>
-        <div className="w-[300px] p-4 border border-zinc-400 rounded-sm hover:bg-zinc-100 hover:text-zinc-700">
-          <p
-            className="text-sm text-gray-500 hover:text-gray-900 transition duration
-                                300 ease-in-out"
-          >
-            Total Expenses
-          </p>
-          <p className="text-2xl font-semibold text-zinc-700">1000</p>
-          <div className="flex justify-between">
-            <p>Last Month :</p> <p>100</p>
+    <div className="min-h-screen bg-gray-100">
+      <div className="p-6">
+        <h1 className="text-3xl font-bold text-gray-800 mb-6">
+          Admin Dashboard
+        </h1>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {/* Quick Stats Cards */}
+          <div className="bg-white rounded-lg shadow p-6">
+            <h3 className="text-lg font-semibold text-gray-700">
+              Total Products
+            </h3>
+            <p className="text-3xl font-bold text-blue-600">{stats.totalProducts || 0}</p>
           </div>
 
-        </div>
-        <div className="w-[300px] p-4 border border-zinc-400 rounded-sm hover:bg-zinc-100 hover:text-zinc-700">
-          <p
-            className="text-sm text-gray-500 hover:text-gray-900 transition duration
-                                    300 ease-in-out"
-          >
-            Total Profit
-          </p>
-          <p className="text-2xl font-semibold text-zinc-700">1000</p>
-          <div className="flex justify-between">
-            <p>Today :</p> <p>100</p>
+          <div className="bg-white rounded-lg shadow p-6">
+            <h3 className="text-lg font-semibold text-gray-700">Total Users</h3>
+            <p className="text-3xl font-bold text-green-600">{stats.totalUsers || 0}</p>
           </div>
-          <div className="flex justify-between">
-            <p>Last Month :</p> <p>100</p>
+
+          <div className="bg-white rounded-lg shadow p-6">
+            <h3 className="text-lg font-semibold text-gray-700">
+              Total Orders
+            </h3>
+            <p className="text-3xl font-bold text-purple-600">{stats.totalOrders || 0}</p>
+          </div>
+
+          <div className="bg-white rounded-lg shadow p-6">
+            <h3 className="text-lg font-semibold text-gray-700">Revenue</h3>
+            <p className="text-3xl font-bold text-orange-600">${stats.totalRevenues || 0}</p>
           </div>
         </div>
-      </article>
-    </section>
+
+        {/* Quick Actions */}
+        <div className="mt-8">
+          <h2 className="text-2xl font-bold text-gray-800 mb-4">
+            Quick Actions
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            <Link
+              to="/admin/products"
+              className="bg-white rounded-lg shadow p-4 hover:shadow-lg transition-shadow"
+            >
+              <h3 className="font-semibold text-gray-700">Manage Products</h3>
+              <p className="text-sm text-gray-500">
+                Add, edit, or remove products
+              </p>
+            </Link>
+
+            <Link
+              to="/admin/users"
+              className="bg-white rounded-lg shadow p-4 hover:shadow-lg transition-shadow"
+            >
+              <h3 className="font-semibold text-gray-700">Manage Users</h3>
+              <p className="text-sm text-gray-500">
+                View and manage user accounts
+              </p>
+            </Link>
+
+            <Link
+              to="/admin/orders"
+              className="bg-white rounded-lg shadow p-4 hover:shadow-lg transition-shadow"
+            >
+              <h3 className="font-semibold text-gray-700">Manage Orders</h3>
+              <p className="text-sm text-gray-500">View and process orders</p>
+            </Link>
+
+            <Link
+              to="/admin/settings"
+              className="bg-white rounded-lg shadow p-4 hover:shadow-lg transition-shadow"
+            >
+              <h3 className="font-semibold text-gray-700">Settings</h3>
+              <p className="text-sm text-gray-500">Configure store settings</p>
+            </Link>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 };
 
-export default DashBoard;
+export default Dashboard;

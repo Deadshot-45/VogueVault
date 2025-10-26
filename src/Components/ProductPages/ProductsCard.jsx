@@ -1,21 +1,37 @@
-import React from 'react';
+import React from "react";
+import PropTypes from "prop-types";
 
 const ProductsCard = ({ product }) => {
-  
   return (
-    <div className="sm:w-[220px] sm:h-[320px] max-xs:h-auto max-xs:w-[130px] max-sm:min-xs:w-[190px] max-sm:min-xs:h-[290px] text-sm font-serif flex flex-col my-3 mx-auto cursor-pointer">
-      <div className="sm:h-[250px] w-100% max-sm:min-xs:h-[230px] max-xs:h-[120px] overflow-hidden pb-3">
-        <img
-          src={product.image}
-          alt={product.name} 
-          loading="lazy"
-          className="hover:scale-105 w-full h-full max-xs:h-[170px] duration-75 ease-in-out"
-        />
+    <div className="responsive-container p-2">
+      <div className="group relative overflow-hidden rounded-lg">
+        <div className="aspect-w-1 aspect-h-1 w-full overflow-hidden">
+          <img
+            src={product.image[0]}
+            alt={product.name}
+            loading="lazy"
+            className="responsive-image group-hover:scale-105 transition-transform duration-300"
+          />
+        </div>
+        <div className="mt-4 space-y-1">
+          <h2 className="text-responsive font-serif text-gray-600 line-clamp-2">
+            {product.name}
+          </h2>
+          <p className="text-responsive font-semibold text-gray-500">
+            ${product.price.toFixed(2)}
+          </p>
+        </div>
       </div>
-      <h2>{product.name}</h2>
-      <p>${product.price.toFixed(2)}</p>
     </div>
   );
 };
 
-export default ProductsCard;
+ProductsCard.propTypes = {
+  product: PropTypes.shape({
+    image: PropTypes.arrayOf(PropTypes.string).isRequired,
+    name: PropTypes.string.isRequired,
+    price: PropTypes.number.isRequired,
+  }).isRequired,
+};
+
+export default React.memo(ProductsCard);

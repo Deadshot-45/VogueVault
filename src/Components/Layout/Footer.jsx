@@ -1,6 +1,4 @@
-import React from "react";
-import { assets } from "../../assets/frontend_assets/assets";
-import { Link, Links, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import {
   FaInstagram,
   FaPhone,
@@ -11,7 +9,12 @@ import {
 } from "react-icons/fa";
 
 const Footer = () => {
-  const Navigate = useNavigate();
+  const handleNewsletterSubmit = (e) => {
+    e.preventDefault();
+    e.target.reset();
+    window.location.reload();
+  };
+
   const companyLinks = [
     {
       name: "Home",
@@ -35,23 +38,23 @@ const Footer = () => {
     },
   ];
   return (
-    <footer className="bg-white">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <footer className="bg-white mt-16">
+      <div className="mx-auto px-8 lg:px-12 py-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Brand Section */}
           <div className="space-y-4">
             <Link to="/" className="block w-48">
               <img
-                src={assets.VogueVault}
+                src={"http://localhost:5173/VogueVault.png"}
                 alt="VogueVault Logo"
                 className="h-12 w-auto mix-blend-multiply"
               />
             </Link>
             <p className="text-zinc-600 text-sm leading-relaxed">
               Lorem Ipsum is simply dummy text of the printing and typesetting
-              industry. Lorem Ipsum has been the industry's standard dummy text
-              ever since the 1500s, when an unknown printer took a galley of
-              type and scrambled it to make a type specimen book.
+              industry. Lorem Ipsum has been the industry&apos;s standard dummy
+              text ever since the 1500s, when an unknown printer took a galley
+              of type and scrambled it to make a type specimen book.
             </p>
           </div>
 
@@ -114,7 +117,7 @@ const Footer = () => {
             <p className="text-zinc-600 text-sm">
               Subscribe to our newsletter for updates and exclusive offers.
             </p>
-            <form className="flex gap-2">
+            <form className="flex gap-2" onSubmit={handleNewsletterSubmit}>
               <input
                 type="email"
                 placeholder="Enter your email"

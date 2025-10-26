@@ -1,111 +1,177 @@
-import { createContext, useState, useEffect } from "react";
+import { createContext, useState, useEffect, useMemo } from "react";
+import PropTypes from "prop-types";
 
 const DataContext = createContext();
 
 const DataProvider = ({ children }) => {
+  const [products, setProducts] = useState([]);
   const [productDetails, setProductDetails] = useState({});
   const [searchInput, setSearchInput] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
+  const [favoriteCount, setFavoriteCount] = useState(null);
+  const [isInitialLoad, setIsInitialLoad] = useState(true);
+  const [error, setError] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+
+  // Cart state management with proper error handling
   const [cart, setCart] = useState(() => {
-    const savedCart = localStorage.getItem("cart");
-    return savedCart ? JSON.parse(savedCart) : [];
+    try {
+      const savedCart = localStorage.getItem("cart");
+      if (!savedCart) return [];
+      const parsedCart = JSON.parse(savedCart);
+      return Array.isArray(parsedCart) ? parsedCart : [];
+    } catch (error) {
+      console.error("Error initializing cart:", error);
+      return [];
+    }
   });
+
   const [cartCount, setCartCount] = useState(() => {
     const savedCart = localStorage.getItem("cart");
-    return savedCart ? JSON.parse(savedCart).length : 0;
+    if (!savedCart) return 0;
+    const parsedCart = JSON.parse(savedCart);
+    return parsedCart;
   });
-  const [cartTotal, setCartTotal] = useState(() => {
-    const savedcartTotal = localStorage.getItem("carttotal");
-    return savedcartTotal ? JSON.parse(savedcartTotal) : 0;
-  });
-  const [shipping, setShipping] = useState(() => {
-    const savedShipping = localStorage.getItem("shipping");
-    return savedShipping ? JSON.parse(savedShipping) : 0;
-  });
-  const [gst, setGst] = useState(() => {
-    const savedGst = localStorage.getItem("gst");
-    return savedGst ? JSON.parse(savedGst) : 0;
-  });
-  const [totalPrice, setTotalPrice] = useState(() => {
-    const savedTotalPrice = localStorage.getItem("totalPrice");
-    return savedTotalPrice
-      ? JSON.parse(savedTotalPrice)
-      : cartTotal + shipping + gst;
-  });
-  const [Coupon, setCoupon] = useState(() => {
-    const savedCoupon = localStorage.getItem("Coupon");
-    return savedCoupon ? JSON.parse(savedCoupon) : 0;
-  });
-  const [isCart, setIsCart] = useState(false);
-  const [user, setUser] = useState([]);
-  const [favorites, setFavorite] = useState(()=>{
-    const favorate = localStorage.getItem("favorate");
-    return favorate ? JSON.parse(favorate): [];
-  })
 
-  useEffect(() => {
-    localStorage.setItem("carttotal", JSON.stringify(cartTotal));
-  }, [cartTotal]);
+  // Memoized cart calculations
+  const cartCalculations = useMemo(() => {
+    const cartTotal = cart.reduce(
+      (total, item) => total + item.price * item.quantity,
+      0
+    );
+    const shipping = cartTotal >= 500 ? 0 : 99;
+    const gst = cartTotal * 0.18; // 18% GST
+    const totalPrice = cartTotal + shipping + gst;
 
-  useEffect(() => {
-    localStorage.setItem("shipping", JSON.stringify(shipping));
-  }, [shipping]);
-
-  useEffect(() => {
-    localStorage.setItem("gst", JSON.stringify(gst));
-  }, [gst]);
-
-  useEffect(() => {
-    setTotalPrice(() => {
-       return cartTotal + shipping + gst;
-    });
-    cartTotal >= 500 ? setShipping(0) : setShipping(99);
-  }, [cartTotal]);
-
-  // Persist cart state
-  useEffect(() => {
-    localStorage.setItem("cart", JSON.stringify(cart));
-    setCartCount(cart.length);
+    return { cartTotal, shipping, gst, totalPrice };
   }, [cart]);
 
-  useEffect(()=>{
-    localStorage.setItem("favorate", JSON.stringify(favorites))
-  },[favorites])
+  const [cartTotal, setCartTotal] = useState(cartCalculations.cartTotal);
+  const [shipping, setShipping] = useState(cartCalculations.shipping);
+  const [gst, setGst] = useState(cartCalculations.gst);
+  const [totalPrice, setTotalPrice] = useState(cartCalculations.totalPrice);
+  const [Coupon, setCoupon] = useState(() => {
+    try {
+      const savedCoupon = localStorage.getItem("Coupon");
+      return savedCoupon ? JSON.parse(savedCoupon) : 0;
+    } catch (error) {
+      console.error("Error initializing coupon:", error);
+      return 0;
+    }
+  });
+
+  const [isCart, setIsCart] = useState(false);
+
+  // Favorites state with proper error handling
+  const [favorites, setFavorite] = useState(() => {
+    try {
+      const favorate = localStorage.getItem("favorate");
+      return favorate ? JSON.parse(favorate) : [];
+    } catch (error) {
+      console.error("Error initializing favorites:", error);
+      return [];
+    }
+  });
+
+  // Optimized localStorage updates with error handling
+  useEffect(() => {
+    if (!isInitialLoad) {
+      try {
+        localStorage.setItem("carttotal", JSON.stringify(cartTotal));
+        localStorage.setItem("shipping", JSON.stringify(shipping));
+        localStorage.setItem("gst", JSON.stringify(gst));
+        localStorage.setItem("cart", JSON.stringify(cart));
+        localStorage.setItem("favorate", JSON.stringify(favorites));
+        localStorage.setItem("Coupon", JSON.stringify(Coupon));
+      } catch (error) {
+        console.error("Error updating localStorage:", error);
+        setError("Failed to save data. Please try again.");
+      }
+    }
+  }, [cartTotal, shipping, gst, cart, favorites, Coupon, isInitialLoad]);
+
+  // Update cart calculations when cart changes
+  useEffect(() => {
+    setCartTotal(cartCalculations.cartTotal);
+    setShipping(cartCalculations.shipping);
+    setGst(cartCalculations.gst);
+    setTotalPrice(cartCalculations.totalPrice);
+  }, [cartCalculations]);
+
+  // Update favorite count
+  useEffect(() => {
+    setFavoriteCount(favorites.length);
+  }, [favorites]);
+
+  // Cleanup function
+  useEffect(() => {
+    return () => {
+      setIsInitialLoad(false);
+    };
+  }, []);
+
+  // Memoized context value
+  const contextValue = useMemo(
+    () => ({
+      products,
+      setProducts,
+      productDetails,
+      setProductDetails,
+      searchInput,
+      setSearchInput,
+      searchTerm,
+      setSearchTerm,
+      favoriteCount,
+      cart,
+      setCart,
+      cartCount,
+      setCartCount,
+      cartTotal,
+      setCartTotal,
+      shipping,
+      setShipping,
+      gst,
+      setGst,
+      totalPrice,
+      setTotalPrice,
+      Coupon,
+      setCoupon,
+      isCart,
+      setIsCart,
+      favorites,
+      setFavorite,
+      error,
+      setError,
+      isLoading,
+      setIsLoading,
+    }),
+    [
+      products,
+      productDetails,
+      searchInput,
+      searchTerm,
+      favoriteCount,
+      cart,
+      cartCount,
+      cartTotal,
+      shipping,
+      gst,
+      totalPrice,
+      Coupon,
+      isCart,
+      favorites,
+      error,
+      isLoading,
+    ]
+  );
 
   return (
-    <DataContext.Provider
-      value={{
-        productDetails,
-        setProductDetails,
-        cart,
-        setCart,
-        shipping,
-        setShipping,
-        gst,
-        setGst,
-        isCart,
-        setIsCart,
-        cartCount,
-        setCartCount,
-        searchInput,
-        setSearchInput,
-        searchTerm,
-        setSearchTerm,
-        cartTotal,
-        setCartTotal,
-        totalPrice,
-        setTotalPrice,
-        favorites,
-        setFavorite,
-        Coupon,
-        setCoupon,
-        user,
-        setUser,
-      }}
-    >
-      {children}
-    </DataContext.Provider>
+    <DataContext.Provider value={contextValue}>{children}</DataContext.Provider>
   );
+};
+
+DataProvider.propTypes = {
+  children: PropTypes.node.isRequired,
 };
 
 export { DataContext, DataProvider };
