@@ -1,9 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
-// Assets
-import { assets } from "../assets/frontend_assets/assets";
-
 // Components
 import ProductsCard from "../Components/ProductPages/ProductsCard";
 import Subscribe from "../Components/ProductPages/Subscribe";
@@ -13,16 +10,15 @@ import { DataContext } from "../Context/DataContext";
 
 // Hooks
 import { useGetApiProducts } from "../Hooks/UseGetApiProducts";
+import { getImageUrl } from "../Utils/imageUrlHelper";
 
 const Home = () => {
   const { products, setProducts } = useContext(DataContext);
   const [page, setPage] = useState(1);
   const { data, isLoading, error } = useGetApiProducts(page);
-  console.log("[Home] useGetApiProducts data:", data);
-  console.log("[Home] isLoading:", isLoading, "error:", error);
 
   useEffect(() => {
-    console.log("[Home] useEffect triggered. data:", data);
+    console.log("data", Array.isArray(data), data.length);
     if (Array.isArray(data) && data.length) {
       setProducts(data);
     } else {
@@ -83,7 +79,7 @@ const Home = () => {
         </div>
         <div className="w-1/2 h-full">
           <img
-            src={assets.hero_img}
+            src={getImageUrl("hero_img.png")}
             alt="hero img"
             loading="lazy"
             className="h-full w-full object-cover"
@@ -156,7 +152,7 @@ const CompanyInfo = () => {
     <section className="grid grid-cols-1 md:grid-cols-3 gap-8">
       <article className="text-center min-h-[120px] px-2 py-6 flex flex-col items-center">
         <img
-          src={assets.exchange_icon}
+          src={getImageUrl("exchange_icon.png")}
           alt="exchange-img"
           loading="lazy"
           className="h-12 w-12 max-sm:w-10 max-sm:h-10 mb-2"
@@ -170,7 +166,7 @@ const CompanyInfo = () => {
       </article>
       <article className="text-center min-h-[120px] px-2 py-6 flex flex-col items-center">
         <img
-          src={assets.quality_icon}
+          src={getImageUrl("quality_icon.png")}
           alt="return-policy"
           loading="lazy"
           className="h-12 w-12 max-sm:w-11 max-sm:h-11 mb-2"
@@ -184,7 +180,7 @@ const CompanyInfo = () => {
       </article>
       <article className="text-center min-h-[120px] px-2 py-6 flex flex-col items-center">
         <img
-          src={assets.support_img}
+          src={getImageUrl("support_img.png")}
           alt="customer-care"
           className="h-10 w-10 max-sm:w-9 max-sm:h-9 mb-2"
         />
