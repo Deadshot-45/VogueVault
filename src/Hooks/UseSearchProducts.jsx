@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import api from "./apiInstance"; // Use your axios instance
+import { transformProductsImages } from "../Utils/imageUrlHelper";
 
 // Define the custom hook
 const useSearchProducts = (query, page = 1, limit = 10) => {
@@ -36,10 +37,12 @@ const useSearchProducts = (query, page = 1, limit = 10) => {
         const apiData = response.data;
         if (apiData.error === false) {
           const newData = apiData.data || [];
+          // Transform image URLs to use proxy
+          const transformedData = transformProductsImages(newData);
           setData((prevData) =>
-            page === 1 ? newData : [...prevData, ...newData]
+            page === 1 ? transformedData : [...prevData, ...transformedData]
           );
-          setHasMore(newData.length === limit);
+          setHasMore(transformedData.length === limit);
           setError(null);
         } else {
           setError(apiData.message || "Failed to fetch products");

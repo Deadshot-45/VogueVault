@@ -7,6 +7,7 @@ import {
   FaTwitter,
   FaLinkedin,
 } from "react-icons/fa";
+import { getImageUrl } from "../../Utils/imageUrlHelper";
 
 const Footer = () => {
   const handleNewsletterSubmit = (e) => {
@@ -45,7 +46,7 @@ const Footer = () => {
           <div className="space-y-4">
             <Link to="/" className="block w-48">
               <img
-                src={"https://vault-vogue-expressjs.vercel.app/VogueVault.png"}
+                src={getImageUrl("VogueVault.png")}
                 alt="VogueVault Logo"
                 className="h-12 w-auto mix-blend-multiply"
               />

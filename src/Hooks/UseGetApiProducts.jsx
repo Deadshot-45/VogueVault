@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import api from "./apiInstance"; // Use your axios instance
+import { transformProductsImages } from "../Utils/imageUrlHelper";
 
 const useGetApiProducts = (page = 1, limit = 12) => {
   const [data, setData] = useState([]);
@@ -30,14 +31,17 @@ const useGetApiProducts = (page = 1, limit = 12) => {
 
         if (apiData.error === false) {
           console.log("apidata", apiData);
+          // Transform image URLs to use proxy
+          const transformedProducts = transformProductsImages(apiData.products);
+          
           if (page === 1) {
-            setData(apiData.products);
+            setData(transformedProducts);
             localStorage.setItem(
               "cachedProducts",
-              JSON.stringify(apiData.products)
+              JSON.stringify(transformedProducts)
             );
           } else {
-            setData((prevData) => [...prevData, ...apiData.products]);
+            setData((prevData) => [...prevData, ...transformedProducts]);
           }
           if (apiData.total) {
             setTotalPages(Math.ceil(apiData.total / limit));

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import api from "./apiInstance"; // Use your axios instance
+import { transformProductImages } from "../Utils/imageUrlHelper";
 
 const useGetSingleProduct = () => {
   const [product, setProduct] = useState(null);
@@ -22,8 +23,10 @@ const useGetSingleProduct = () => {
   const getSingleProduct = async (id) => {
     const response = await makeApiCall(id);
     if (response && response.error === false) {
-      setProduct(response.product);
-      console.log(response.product);
+      // Transform image URLs to use proxy
+      const transformedProduct = transformProductImages(response.product);
+      setProduct(transformedProduct);
+      console.log(transformedProduct);
     } else if (response) {
       setError(response.message);
     }
