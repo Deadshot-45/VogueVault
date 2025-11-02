@@ -30,7 +30,7 @@ export const NavBar = lazyWithDelay(() => import("../Layout/NavBar"), 0);
 export const Footer = lazyWithDelay(() => import("../Layout/Footer"), 0);
 
 // Preload critical components
-// preloadComponent(() => import("../../Pages/Home"));
+// preloadComponent(() => import("../Pages/Home"));
 // preloadComponent(() => import("../Layout/NavBar"));
 
 // Chunk 2: Authentication Components
