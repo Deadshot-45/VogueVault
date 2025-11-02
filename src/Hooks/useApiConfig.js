@@ -2,9 +2,12 @@ import { useEffect, useMemo } from "react";
 import axios from "axios";
 
 const useApiConfig = () => {
+  // Use environment variable if set, otherwise use relative /api path for Vercel proxy
+  // In production, /api will be proxied to the backend via vercel.json
+  // In development, set VITE_API_BASE_URL to your local backend URL
   const API_BASE_URL =
     import.meta.env.VITE_API_BASE_URL ||
-    "https://vault-vogue-expressjs.vercel.app/";
+    "/api";
   const API_TIMEOUT = parseInt(import.meta.env.VITE_API_TIMEOUT) || 10000;
   const ENABLE_MOCK_API = import.meta.env.VITE_ENABLE_MOCK_API === "true";
 

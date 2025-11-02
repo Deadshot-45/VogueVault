@@ -1,7 +1,10 @@
 import { useState } from "react";
 import axios from "axios";
 
-export const API_URL = "http://localhost:5500/api/data/admin";
+// Use /api for production (Vercel proxy) or set VITE_ADMIN_API_URL for local development
+// Note: If your local backend uses different path, set VITE_ADMIN_API_URL=http://localhost:5500/api/data/admin
+export const API_URL = 
+  import.meta.env.VITE_ADMIN_API_URL || "/api/admin";
 
 const getToken = () => {
   const token = localStorage.getItem("token");

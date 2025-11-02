@@ -1,8 +1,9 @@
 import axios from "axios";
 
 // Read from Vite env or fallback
-const API_BASE_URL =
-  import.meta.env.VITE_API_BASE_URL || "http://localhost:6500/api/data";
+// Use /api for production (Vercel proxy) or localhost for local development
+// Note: If your local backend uses /api/data, set VITE_API_BASE_URL=http://localhost:6500/api/data
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "/api";
 const API_TIMEOUT = parseInt(import.meta.env.VITE_API_TIMEOUT) || 10000;
 
 // Create axios instance
