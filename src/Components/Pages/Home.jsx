@@ -46,8 +46,6 @@ const Home = () => {
     .filter((product) => product.bestseller)
     .slice(0, 10);
 
-
-    
   return (
     <div className="space-y-16">
       <header className="relative h-[68dvh] lg:h-[40dvh] max-sm:h-[15dvh] sm:h-[30dvh] flex justify-between w-full">
@@ -71,7 +69,7 @@ const Home = () => {
         </div>
         <div className="w-1/2 h-full">
           <img
-            src={assets.hero_img}
+            src={"https://vault-vogue-expressjs.vercel.app/hero_img.png"}
             alt="hero img"
             loading="lazy"
             className="h-full w-full object-cover"
