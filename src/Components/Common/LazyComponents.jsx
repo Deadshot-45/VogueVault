@@ -25,19 +25,12 @@ const lazyWithDelay = (factory, delay = 300) => {
 // };
 
 // Chunk 1: Core/Essential Components (Load immediately)
-export const Home = lazyWithDelay(() => import("../Pages/Home"), 0);
 export const Home = lazyWithDelay(() => import("../../Pages/Home"), 0);
 export const NavBar = lazyWithDelay(() => import("../Layout/NavBar"), 0);
 export const Footer = lazyWithDelay(() => import("../Layout/Footer"), 0);
 
 // Preload critical components
 // preloadComponent(() => import("../Pages/Home"));
-// preloadComponent(() => import("../Layout/NavBar"));
-
-// Chunk 2: Authentication Components
-export const SignIn = lazyWithDelay(() => import("../Pages/SignIn"));
-export const SignUp = lazyWithDelay(() => import("../Pages/SignUp"));
-// preloadComponent(() => import("../../Pages/Home"));
 // preloadComponent(() => import("../Layout/NavBar"));
 
 // Chunk 2: Authentication Components
@@ -48,9 +41,6 @@ export const Unauthorized = lazyWithDelay(() =>
 );
 
 // Chunk 3: Main Pages
-export const About = lazyWithDelay(() => import("../Pages/About"));
-export const Contact = lazyWithDelay(() => import("../Pages/Contact"));
-export const Collection = lazyWithDelay(() => import("../Pages/Collection"));
 export const About = lazyWithDelay(() => import("../../Pages/About"));
 export const Contact = lazyWithDelay(() => import("../../Pages/Contact"));
 export const Collection = lazyWithDelay(() => import("../../Pages/Collection"));
@@ -65,9 +55,6 @@ export const Cart = lazyWithDelay(() =>
 export const Favorites = lazyWithDelay(() => import("../user/Favorites"));
 
 // Chunk 5: Category Pages
-export const Mens = lazyWithDelay(() => import("../Pages/Mens"));
-export const Womens = lazyWithDelay(() => import("../Pages/Womens"));
-export const Kids = lazyWithDelay(() => import("../Pages/Kids"));
 export const Mens = lazyWithDelay(() => import("../../Pages/Mens"));
 export const Womens = lazyWithDelay(() => import("../../Pages/Womens"));
 export const Kids = lazyWithDelay(() => import("../../Pages/Kids"));
