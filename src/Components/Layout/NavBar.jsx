@@ -22,6 +22,7 @@ const NavBar = () => {
   const searchContainerRef = useRef(null);
   const menuRef = useRef(null);
 
+  console.log(getImageUrl("VogueVault.png"));
   // Using custom hooks
   const {
     searchTerm,

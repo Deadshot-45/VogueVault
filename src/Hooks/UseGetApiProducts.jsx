@@ -31,8 +31,18 @@ const useGetApiProducts = (page = 1, limit = 12) => {
 
         if (apiData.error === false) {
           console.log("apidata", apiData);
+          console.log("apiData.products", apiData.products, Array.isArray(apiData.products), apiData.products?.length);
+          
+          // Check if products exist and is an array
+          if (!apiData.products || !Array.isArray(apiData.products)) {
+            console.error("Products is not an array:", apiData.products);
+            setError("Invalid products data received");
+            return;
+          }
+          
           // Transform image URLs to use proxy
           const transformedProducts = transformProductsImages(apiData.products);
+          console.log("transformedProducts", transformedProducts, transformedProducts?.length);
           
           if (page === 1) {
             setData(transformedProducts);
