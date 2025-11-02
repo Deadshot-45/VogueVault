@@ -2,7 +2,9 @@ import { useEffect, useMemo } from "react";
 import axios from "axios";
 
 const useApiConfig = () => {
-  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+  const API_BASE_URL =
+    import.meta.env.VITE_API_BASE_URL ||
+    "https://vault-vogue-expressjs.vercel.app/";
   const API_TIMEOUT = parseInt(import.meta.env.VITE_API_TIMEOUT) || 10000;
   const ENABLE_MOCK_API = import.meta.env.VITE_ENABLE_MOCK_API === "true";
 
