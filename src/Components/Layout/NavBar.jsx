@@ -169,7 +169,7 @@ const NavBar = () => {
           {/* Logo */}
           <Link to="/" className="flex-shrink-0">
             <img
-              src={"http://localhost:5500/VogueVault.png"}
+              src={"https://vault-vogue-expressjs.vercel.app/VogueVault.png"}
               alt="VogueVault logo"
               className="h-8 w-auto mix-blend-multiply 2xl:h-10"
             />

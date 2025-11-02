@@ -29,9 +29,13 @@ const useGetApiProducts = (page = 1, limit = 12) => {
         const apiData = response.data;
 
         if (apiData.error === false) {
+          console.log("apidata", apiData);
           if (page === 1) {
             setData(apiData.products);
-            localStorage.setItem("cachedProducts", JSON.stringify(apiData.products));
+            localStorage.setItem(
+              "cachedProducts",
+              JSON.stringify(apiData.products)
+            );
           } else {
             setData((prevData) => [...prevData, ...apiData.products]);
           }
