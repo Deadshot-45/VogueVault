@@ -1,7 +1,11 @@
 import { useState } from "react";
 import axios from "axios";
 
-export const API_URL = "http://localhost:5500/api/data/admin";
+// In production (Vercel), always use /api/admin for proxy. In development, use localhost or env var
+const isProduction = typeof window !== 'undefined' && window.location.hostname.includes('vercel.app');
+export const API_URL = isProduction 
+  ? "/api/admin" 
+  : (import.meta.env.VITE_ADMIN_API_URL || "http://localhost:5500/api/data/admin");
 
 const getToken = () => {
   const token = localStorage.getItem("token");

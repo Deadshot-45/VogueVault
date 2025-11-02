@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { assets } from "../../assets/frontend_assets/assets";
+// import { assets } from "../../assets/frontend_assets/assets";
 import ProductsCard from "../ProductPages/ProductsCard";
 import Subscribe from "../ProductPages/Subscribe";
 import { DataContext } from "../../Context/DataContext";
@@ -46,8 +46,6 @@ const Home = () => {
     .filter((product) => product.bestseller)
     .slice(0, 10);
 
-
-    
   return (
     <div className="space-y-16">
       <header className="relative h-[68dvh] lg:h-[40dvh] max-sm:h-[15dvh] sm:h-[30dvh] flex justify-between w-full">
@@ -71,7 +69,7 @@ const Home = () => {
         </div>
         <div className="w-1/2 h-full">
           <img
-            src={assets.hero_img}
+            src={"https://vault-vogue-expressjs.vercel.app/hero_img.png"}
             alt="hero img"
             loading="lazy"
             className="h-full w-full object-cover"
@@ -144,7 +142,7 @@ const CompanyInfo = () => {
     <section className="grid grid-cols-1 md:grid-cols-3 gap-8">
       <article className="text-center min-h-[120px] px-2 py-6 flex flex-col items-center">
         <img
-          src={assets.exchange_icon}
+          src={"https://vault-vogue-expressjs.vercel.app/exchange_icon.png"}
           alt="exchange-img"
           loading="lazy"
           className="h-12 w-12 max-sm:w-10 max-sm:h-10 mb-2"
@@ -158,7 +156,7 @@ const CompanyInfo = () => {
       </article>
       <article className="text-center min-h-[120px] px-2 py-6 flex flex-col items-center">
         <img
-          src={assets.quality_icon}
+          src={"https://vault-vogue-expressjs.vercel.app/quality_icon.png"}
           alt="return-policy"
           loading="lazy"
           className="h-12 w-12 max-sm:w-11 max-sm:h-11 mb-2"
@@ -172,7 +170,7 @@ const CompanyInfo = () => {
       </article>
       <article className="text-center min-h-[120px] px-2 py-6 flex flex-col items-center">
         <img
-          src={assets.support_img}
+          src={"https://vault-vogue-expressjs.vercel.app/support_img.png"}
           alt="customer-care"
           className="h-10 w-10 max-sm:w-9 max-sm:h-9 mb-2"
         />
