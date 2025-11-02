@@ -11,7 +11,7 @@
   ],
   "headers": [
     {
-      "source": "/api/:path*\\.(png|jpg|jpeg|gif|webp|svg)",
+      "source": "/:path*\\.(png|jpg|jpeg|gif|webp|svg)",
       "headers": [
         {
           "key": "Cache-Control",
