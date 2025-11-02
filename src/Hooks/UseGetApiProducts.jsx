@@ -17,7 +17,10 @@ const useGetApiProducts = (page = 1, limit = 12) => {
         if (page === 1) {
           const cachedData = localStorage.getItem("cachedProducts");
           if (cachedData) {
-            setData(JSON.parse(cachedData));
+            // Transform cached products too, in case URLs need updating
+            const cachedProducts = JSON.parse(cachedData);
+            const transformedCached = transformProductsImages(cachedProducts);
+            setData(transformedCached);
             setIsLoading(false);
             return;
           }
@@ -31,19 +34,28 @@ const useGetApiProducts = (page = 1, limit = 12) => {
 
         if (apiData.error === false) {
           console.log("apidata", apiData);
-          console.log("apiData.products", apiData.products, Array.isArray(apiData.products), apiData.products?.length);
-          
+          console.log(
+            "apiData.products",
+            apiData.products,
+            Array.isArray(apiData.products),
+            apiData.products?.length
+          );
+
           // Check if products exist and is an array
           if (!apiData.products || !Array.isArray(apiData.products)) {
             console.error("Products is not an array:", apiData.products);
             setError("Invalid products data received");
             return;
           }
-          
+
           // Transform image URLs to use proxy
           const transformedProducts = transformProductsImages(apiData.products);
-          console.log("transformedProducts", transformedProducts, transformedProducts?.length);
-          
+          console.log(
+            "transformedProducts",
+            transformedProducts,
+            transformedProducts?.length
+          );
+
           if (page === 1) {
             setData(transformedProducts);
             localStorage.setItem(
@@ -64,7 +76,10 @@ const useGetApiProducts = (page = 1, limit = 12) => {
         if (page === 1) {
           const cachedData = localStorage.getItem("cachedProducts");
           if (cachedData) {
-            setData(JSON.parse(cachedData));
+            // Transform cached products before using them
+            const cachedProducts = JSON.parse(cachedData);
+            const transformedCached = transformProductsImages(cachedProducts);
+            setData(transformedCached);
           }
         }
       } finally {

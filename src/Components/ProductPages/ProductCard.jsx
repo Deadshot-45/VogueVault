@@ -6,6 +6,7 @@ import { DataContext } from "../../Context/DataContext";
 import PropTypes from "prop-types";
 import { AuthContext } from "../../Context/AuthContext";
 import useUpdateFav from "../../Hooks/UpdateFav";
+import { getImageUrl } from "../../Utils/imageUrlHelper";
 
 const ProductCard = ({ product, showFavorite = false }) => {
   const { favorites, setFavorite } = useContext(DataContext);
@@ -43,9 +44,14 @@ const ProductCard = ({ product, showFavorite = false }) => {
     >
       <div className="aspect-square relative overflow-hidden">
         <img
-          src={product.image[0]}
+          src={product?.image?.[0] ? getImageUrl(product.image[0]) : ""}
           alt={product.name}
           className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-200 relative z-10"
+          onError={(e) => {
+            console.error("Image failed to load:", product?.image?.[0]);
+            e.target.src =
+              "https://via.placeholder.com/400?text=Image+Not+Found";
+          }}
         />
         {showFavorite && (
           <button
