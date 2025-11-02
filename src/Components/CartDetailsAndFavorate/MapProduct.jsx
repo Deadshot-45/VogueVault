@@ -8,6 +8,7 @@ import { AuthContext } from "../../Context/AuthContext";
 import useDeleteProduct from "../../Hooks/UseDeleteProduct";
 import useUpdateFav from "../../Hooks/UpdateFav";
 import { toast, ToastContainer } from "react-toastify";
+import { getImageUrl } from "../../Utils/imageUrlHelper";
 
 const MapProduct = ({ product }) => {
   const { cart, setCart, setCartCount, setFavorite } = useContext(DataContext);
@@ -89,9 +90,13 @@ const MapProduct = ({ product }) => {
           <Link to={`/product/${product._id}`} className="flex-shrink-0">
             <div className="w-24 h-24 rounded-md overflow-hidden">
               <img
-                src={product.image[0]}
+                src={product?.image?.[0] ? getImageUrl(product.image[0]) : ""}
                 alt={product.name}
                 className="w-full h-full object-cover object-center"
+                onError={(e) => {
+                  console.error("Image failed to load:", product?.image?.[0]);
+                  e.target.src = "https://via.placeholder.com/100?text=Image";
+                }}
               />
             </div>
           </Link>

@@ -58,8 +58,10 @@ const ProductPage = () => {
   }, [data, id]);
 
   useEffect(() => {
-    if (product) {
-      setSelectedImage(product.image[0]);
+    if (product && product.image && product.image.length > 0) {
+      // Product images are already transformed by useGetSingleProduct, but ensure it's properly set
+      const firstImage = product.image[0];
+      setSelectedImage(firstImage);
       setProductDetails(product);
     }
   }, [product, setProductDetails]);
