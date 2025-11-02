@@ -1,13 +1,13 @@
 import axios from "axios";
 
 // Read from Vite env or fallback
-// In production (Vercel), always use /api for proxy. In development, use localhost or env var
+// In production (Vercel), always use /api/data for proxy. In development, use localhost or env var
 const isProduction =
   import.meta.env.PROD ||
   (typeof window !== "undefined" &&
     window.location.hostname.includes("vercel.app"));
 const API_BASE_URL = isProduction
-  ? "/api"
+  ? "/api/data"
   : import.meta.env.VITE_API_BASE_URL || "http://localhost:6500/api/data";
 const API_TIMEOUT = parseInt(import.meta.env.VITE_API_TIMEOUT) || 10000;
 
