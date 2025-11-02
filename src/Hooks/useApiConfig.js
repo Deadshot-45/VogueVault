@@ -6,7 +6,7 @@ const useApiConfig = () => {
   // This ensures CORS proxy works even if VITE_API_BASE_URL is set incorrectly
   const isProduction = import.meta.env.PROD || (typeof window !== 'undefined' && window.location.hostname.includes('vercel.app'));
   const API_BASE_URL = isProduction 
-    ? "/api" 
+    ? "/api/data" 
     : (import.meta.env.VITE_API_BASE_URL || "http://localhost:6500/api/data");
   const API_TIMEOUT = parseInt(import.meta.env.VITE_API_TIMEOUT) || 10000;
   const ENABLE_MOCK_API = import.meta.env.VITE_ENABLE_MOCK_API === "true";
