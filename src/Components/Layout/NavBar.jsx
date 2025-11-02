@@ -12,6 +12,7 @@ import { MdOutlineMenu } from "react-icons/md";
 import { CSSTransition } from "react-transition-group";
 import { useClickOutside, useSearch } from "../../Hooks/UseSearch";
 import SearchResults from "./SerachResults";
+import { getImageUrl } from "../../Utils/imageUrlHelper";
 
 const NavBar = () => {
   const [searchInput, setSearchInput] = useState(false);
@@ -169,7 +170,7 @@ const NavBar = () => {
           {/* Logo */}
           <Link to="/" className="flex-shrink-0">
             <img
-              src={"https://vault-vogue-expressjs.vercel.app/VogueVault.png"}
+              src={getImageUrl("VogueVault.png")}
               alt="VogueVault logo"
               className="h-8 w-auto mix-blend-multiply 2xl:h-10"
             />
