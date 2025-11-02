@@ -1,7 +1,7 @@
 {
   "rewrites": [
     {
-      "source": "/api/data/:path*",
+      "source": "/api/:path*",
       "destination": "https://vault-vogue-expressjs.vercel.app/:path*"
     },
     {
