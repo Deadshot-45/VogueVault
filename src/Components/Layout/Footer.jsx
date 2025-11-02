@@ -45,7 +45,7 @@ const Footer = () => {
           <div className="space-y-4">
             <Link to="/" className="block w-48">
               <img
-                src={"http://localhost:5173/VogueVault.png"}
+                src={"https://vault-vogue-expressjs.vercel.app/VogueVault.png"}
                 alt="VogueVault Logo"
                 className="h-12 w-auto mix-blend-multiply"
               />
