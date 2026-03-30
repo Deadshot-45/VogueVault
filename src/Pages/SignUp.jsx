@@ -60,7 +60,7 @@ const SignUp = () => {
       validateForm(formData);
 
       const response = await axios.post(
-        "http://localhost:5500/api/data/signup",
+        "https://vogue-vault-blue.vercel.app/api/data/signup",
         formData,
         {
           headers: {
